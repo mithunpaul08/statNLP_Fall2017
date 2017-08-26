@@ -4,7 +4,7 @@
 		module="hw1_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20170825170540"
+		publication="20170825182609"
 	>
 		<description>
 		hw1
@@ -34,5 +34,7 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.11.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="com.typesafe.scala-logging" name="scala-logging_2.11" rev="3.5.0" conf="compile->default(compile)"/>
+		<dependency org="ch.qos.logback" name="logback-classic" rev="1.1.7" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>
