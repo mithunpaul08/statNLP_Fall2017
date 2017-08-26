@@ -1,3 +1,3 @@
 git add --all
-git commit -m "default comment"
+git commit -m "will print top 10 most frequent lemmas"
 git push origin master

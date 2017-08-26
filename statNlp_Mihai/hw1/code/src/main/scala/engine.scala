@@ -63,7 +63,7 @@ object engine extends LazyLogging {
 
     val htLemmas_sorted= scala.collection.immutable.ListMap(htLemmas.toSeq.sortWith(_._2>_._2): _*)
 
-    println("Lemmas_sorted:\n" + htLemmas_sorted.take(10).mkString("\n"))
+    println("Lemmas top 10 :\n" + htLemmas_sorted.take(10).mkString("\n"))
     return htLemmas;
   }
 
