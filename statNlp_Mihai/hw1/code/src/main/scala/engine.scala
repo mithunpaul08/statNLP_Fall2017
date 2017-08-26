@@ -13,6 +13,8 @@ object engine extends LazyLogging {
 
     var lines = Source.fromFile(fileToRead).getLines
     var htLemmas = scala.collection.mutable.Map[String, Int]()
+    var htPos = scala.collection.mutable.Map[String, Int]()
+    var htBoth = scala.collection.mutable.Map[String, Int]()
 
     for (lineFromInput <- lines) {
 
