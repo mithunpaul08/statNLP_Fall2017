@@ -1,17 +1,17 @@
+package hw1
 
- package hw1
  import com.typesafe.scalalogging.LazyLogging
 import ch.qos.logback.classic.{Level, Logger}
  import org.slf4j.LoggerFactory
 import scala.io.Source
 
-object engine extends LazyLogging {
+object qn1 extends LazyLogging {
   LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME).asInstanceOf[Logger].setLevel(Level.INFO)
 
   def readBrownToMem(fileToRead: String): scala.collection.mutable.Map[String, Int] = {
 
 
-    var lines = Source.fromFile(fileToRead).getLines
+    val lines = Source.fromFile(fileToRead).getLines
     var htLemmas = scala.collection.mutable.Map[String, Int]()
     var htPos = scala.collection.mutable.Map[String, Int]()
     var htBoth = scala.collection.mutable.Map[String, Int]()

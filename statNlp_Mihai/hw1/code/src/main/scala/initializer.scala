@@ -16,9 +16,12 @@ object initializer extends App with LazyLogging{
   var getLemmas=false;
   var getPos=false;
   var getPosLemmas=false;
+  var getHomeSimilar=false;
+  var getHomeDissimilar=false;
 
 
-  var inputFileForAdjTemplate = "src/main/resources/brown_sample.txt"
+  val brown = "src/main/resources/brown_sample.txt"
+  val emb = "src/main/resources/vectors_top3000.txt"
   try {
 
     println("Hi, welcome to HW1 Stat NLP Fall 2017")
@@ -37,6 +40,7 @@ object initializer extends App with LazyLogging{
         println("Type 1 for Qn 1.1: top 10 most frequent words .")
         println("Type 2 for Qn 1.2: top 10 most frequent POS tags .")
         println("Type 3 for Qn 1.3: top 10 most frequent word-POS tag pairs? .")
+        println("Type 3 for Qn 2.1: top 10 most similar words to home .")
 
         println("Type your input here:")
         val typeOfProgram = StdIn.readLine()
@@ -48,19 +52,29 @@ object initializer extends App with LazyLogging{
         }
         else if (typeOfProgram == "1") {
           getLemmas=true;
+          qn1.readBrownToMem(brown)
         }
         else if (typeOfProgram == "2") {
 
           getPos=true;
+          qn1.readBrownToMem(brown)
 
         }
         else if (typeOfProgram == "3") {
           getPosLemmas=true;
+          qn1.readBrownToMem(brown)
 
 
         }
 
-        engine.readBrownToMem(inputFileForAdjTemplate)
+        else if (typeOfProgram == "4") {
+          getHomeSimilar=true;
+          qn2.readEmbCalcDot(emb)
+
+
+        }
+
+
       }
     }
   }

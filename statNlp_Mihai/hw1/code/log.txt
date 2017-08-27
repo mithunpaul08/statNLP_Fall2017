@@ -2018,11 +2018,11 @@ tuple:raises/nns
 tuple:./.
 [0m[[31merror[0m] [0m(run-main-0) java.lang.ArrayIndexOutOfBoundsException: 1[0m
 java.lang.ArrayIndexOutOfBoundsException: 1
-	at hw1.engine$$anonfun$readBrownToMem$1.apply(engine.scala:19)
-	at hw1.engine$$anonfun$readBrownToMem$1.apply(engine.scala:15)
+	at hw1.qn1$$anonfun$readBrownToMem$1.apply(engine.scala:19)
+	at hw1.qn1$$anonfun$readBrownToMem$1.apply(engine.scala:15)
 	at scala.collection.Iterator$class.foreach(Iterator.scala:893)
 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1336)
-	at hw1.engine$.readBrownToMem(engine.scala:15)
+	at hw1.qn1$.readBrownToMem(engine.scala:15)
 	at hw1.initializer$.delayedEndpoint$hw1$initializer$1(initializer.scala:15)
 	at hw1.initializer$delayedInit$body.apply(initializer.scala:10)
 	at scala.Function0$class.apply$mcV$sp(Function0.scala:34)
