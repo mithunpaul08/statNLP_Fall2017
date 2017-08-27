@@ -75,7 +75,7 @@ object engine extends LazyLogging {
                   else {
                     htBoth += (tuple -> 1)
                   }
-                } 
+                }
 
 
               }
@@ -97,17 +97,17 @@ object engine extends LazyLogging {
     if (initializer.getLemmas == true) {
       //sort the hashtable by value and pick top 10
       val htLemmas_sorted = scala.collection.immutable.ListMap(htLemmas.toSeq.sortWith(_._2 > _._2): _*)
-      println("Lemmas top 10 :\n" + htLemmas_sorted.take(10).mkString("\n"))
+      println("\ntop 10 most frequent words are :\n" + htLemmas_sorted.take(10).mkString("\n"))
     }
 
     if (initializer.getPos == true) {
       val htPos_sorted = scala.collection.immutable.ListMap(htPos.toSeq.sortWith(_._2 > _._2): _*)
-      println("POS top 10 :\n" + htPos_sorted.take(10).mkString("\n"))
+      println("\nPOS top 10 :\n" + htPos_sorted.take(10).mkString("\n"))
     }
 
     if (initializer.getPosLemmas == true) {
       val htBoth_sorted = scala.collection.immutable.ListMap(htBoth.toSeq.sortWith(_._2 > _._2): _*)
-      println("word-POS top 10 :\n" + htBoth_sorted.take(10).mkString("\n"))
+      println("\nword-POS top 10 :\n" + htBoth_sorted.take(10).mkString("\n"))
 
     }
     return htLemmas;
