@@ -1,9 +1,15 @@
+#!/usr/bin/env bash
 
-if [ -z "$1"]
+comment="my default comment"
+if [ -z "$1" ];
 then
-echo "No argument supplied"
+	echo "No argument supplied"
+else
+	comment="$1"
 fi
 
+echo $comment
+
 git add --all
-git commit -m "will print top 10 most frequent lemmas"
+git commit -m $comment
 git push origin master
