@@ -1,4 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/Users/mithun/fall2017/statNlp_Mihai/hw1/code/src/main/resources/brown_sample.txt,/Users/mithun/fall2017/statNlp_Mihai/hw1/code/target/scala-2.11/classes/brown_sample.txt)[0m
-[0m[[0mdebug[0m] [0m	(/Users/mithun/fall2017/statNlp_Mihai/hw1/code/src/main/resources/brown_sample.txt~,/Users/mithun/fall2017/statNlp_Mihai/hw1/code/target/scala-2.11/classes/brown_sample.txt~)[0m
-[0m[[0mdebug[0m] [0m	(/Users/mithun/fall2017/statNlp_Mihai/hw1/code/src/main/resources/vectors_top3000.txt,/Users/mithun/fall2017/statNlp_Mihai/hw1/code/target/scala-2.11/classes/vectors_top3000.txt)[0m
