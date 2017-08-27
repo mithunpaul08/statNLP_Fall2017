@@ -17,15 +17,18 @@ object qn2 extends LazyLogging {
 
 
     for (lineFromInput <- lines) {
+      var word = ""
+      var embeddings = new scala.collection.mutable.ListBuffer[Double]()
 
       if (lineFromInput != "") {
         val stringVersionOfTemplate = lineFromInput.split("\\s")
 
-        var embeddings = new scala.collection.mutable.ListBuffer[Double]()
-        var word = ""
+
+
 
         //for each tuple, check if its string or Double
         for (tuple <- stringVersionOfTemplate) {
+
 
           if (tuple != "") {
 
@@ -46,7 +49,8 @@ object qn2 extends LazyLogging {
               }
 
             }
-
+          }
+        }
 
             //once you have all the embeddings of this word stored in a listbuffer.
             // create a hashtable that maps each word to its embeddings
@@ -57,10 +61,17 @@ object qn2 extends LazyLogging {
               println("error, the word already exists in htWordEmb")
             }
 
-          }
-        }
+
+
+
+        //println("finished first sentence. The word is:"+word)
+        //println("its embedding list is:"+embeddings.mkString(","))
+
+
 
       }
+
+
     }
 
     /*by now every word and its embeddings are added to htWordEmb.
@@ -92,8 +103,8 @@ object qn2 extends LazyLogging {
       }
 
       //sort the hashtable by value and pick top 10
-      val htLemmas_sorted = scala.collection.immutable.ListMap(htWordDot.toSeq.sortWith(_._2 > _._2): _*)
-      println("\ntop 10 most frequent words are :\n" + htLemmas_sorted.take(10).mkString("\n"))
+      val htWordDot_sorted = scala.collection.immutable.ListMap(htWordDot.toSeq.sortWith(_._2 > _._2): _*)
+      println("\ntop 10 most similar words to home are :\n" + htWordDot_sorted.take(10).mkString("\n"))
     }
   }
 
