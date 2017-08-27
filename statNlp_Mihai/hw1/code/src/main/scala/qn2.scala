@@ -78,7 +78,7 @@ object qn2 extends LazyLogging {
    * Pick the vector of home, dot product with each of the other 2999 words, add to a hashtable
    * sort the list, pick top 10*/
 
-    if (initializer.getHomeSimilar == true) {
+
 
       val home = "home"
       var homeEmbed = ListBuffer[Double]()
@@ -101,10 +101,18 @@ object qn2 extends LazyLogging {
           htWordDot += (k -> dotProduct)
         }
       }
+    if (initializer.getHomeSimilar == true) {
 
       //sort the hashtable by value and pick top 10
       val htWordDot_sorted = scala.collection.immutable.ListMap(htWordDot.toSeq.sortWith(_._2 > _._2): _*)
-      println("\ntop 10 most similar words to home are :\n" + htWordDot_sorted.take(10).mkString("\n"))
+      println("\ntop 10 most similar words to \"home\" are :\n" + htWordDot_sorted.take(10).mkString("\n"))
+    }
+
+    if (initializer.getHomeDissimilar == true) {
+
+      //reverse sort the hashtable by value and pick top 10
+      val htWordDot_sorted = scala.collection.immutable.ListMap(htWordDot.toSeq.sortWith(_._2 < _._2): _*)
+      println("\ntop 10 most dissimilar words to \"home\" :\n" + htWordDot_sorted.take(10).mkString("\n"))
     }
   }
 
