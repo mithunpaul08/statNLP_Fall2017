@@ -1,36 +1,30 @@
 package hw1
-import java.io.{PrintWriter, StringWriter}
 
+import java.io.{PrintWriter, StringWriter}
 import com.typesafe.scalalogging.LazyLogging
 import ch.qos.logback.classic.{Level, Logger}
 import org.slf4j.LoggerFactory
 import scala.io._
-
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 import util.control.Breaks._
 
 object initializer extends App with LazyLogging {
-
   LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME).asInstanceOf[Logger].setLevel(Level.INFO)
   var getLemmas = false;
   var getPos = false;
   var getPosLemmas = false;
   var getHomeSimilar = false;
   var getHomeDissimilar = false;
-
-
   val brown = "src/main/resources/brown_sample.txt"
   val emb = "src/main/resources/vectors_top3000.txt"
   try {
-
     println("Hi, welcome to HW1 Stat NLP Fall 2017")
 
 
 
     breakable {
       while (true) {
-
         getLemmas = false;
         getPos = false;
         getPosLemmas = false;
@@ -51,47 +45,31 @@ object initializer extends App with LazyLogging {
         if (typeOfProgram == "0") {
           println("Sad to see you leave. Do come back again. Bye.")
           sys.exit;
-
         }
         else if (typeOfProgram == "1") {
           getLemmas = true;
           qn1.readBrownToMem(brown)
         }
         else if (typeOfProgram == "2") {
-
           getPos = true;
           qn1.readBrownToMem(brown)
-
         }
         else if (typeOfProgram == "3") {
           getPosLemmas = true;
           qn1.readBrownToMem(brown)
-
-
         }
-
         else if (typeOfProgram == "4") {
           getHomeSimilar = true;
           qn2.readEmbCalcDot(emb)
-
-
         }
-
         else if (typeOfProgram == "5") {
           getHomeDissimilar = true;
           qn2.readEmbCalcDot(emb)
-
-
         }
-
-
       }
     }
   }
-
   catch {
-
-
     case e: Exception => {
       // write the error to a log file
       val sw = new StringWriter
@@ -99,7 +77,6 @@ object initializer extends App with LazyLogging {
       logger.error(sw.toString)
       logger.error("Error occured. Going to exit")
       sys.exit(1)
-
     }
   }
 }
