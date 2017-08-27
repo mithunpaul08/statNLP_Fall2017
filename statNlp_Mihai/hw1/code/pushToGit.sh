@@ -11,5 +11,5 @@ fi
 echo $comment
 
 git add --all
-git commit -m $comment
+git commit -m "$comment"
 git push origin master
