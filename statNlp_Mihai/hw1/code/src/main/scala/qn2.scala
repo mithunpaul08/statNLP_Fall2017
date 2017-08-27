@@ -112,7 +112,7 @@ object qn2 extends LazyLogging {
 
       //reverse sort the hashtable by value and pick top 10
       val htWordDot_sorted = scala.collection.immutable.ListMap(htWordDot.toSeq.sortWith(_._2 < _._2): _*)
-      println("\ntop 10 most dissimilar words to \"home\" :\n" + htWordDot_sorted.take(10).mkString("\n"))
+      println("\ntop 10 most dissimilar words to \"home\" are :\n" + htWordDot_sorted.take(10).mkString("\n"))
     }
   }
 

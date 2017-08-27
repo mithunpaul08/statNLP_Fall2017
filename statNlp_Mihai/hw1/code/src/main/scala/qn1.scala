@@ -32,7 +32,7 @@ object qn1 extends LazyLogging {
             val lemmaPos = tuple.split("/")
 
             if (lemmaPos.size > 1) {
-              val lemma = getMyValue(0, lemmaPos).getOrElse("Error")
+              var lemma = getMyValue(0, lemmaPos).getOrElse("Error")
               val pos = getMyValue(1, lemmaPos).getOrElse("Error")
 
 
@@ -41,6 +41,8 @@ object qn1 extends LazyLogging {
               if (myPattern.findFirstIn(pos) != None) {
 
                 if (initializer.getLemmas == true) {
+
+                  lemma=lemma.toLowerCase()
                   //add all lemmas to a hash table
                   if (htLemmas.contains(lemma)) {
                     var count = htLemmas(lemma)
