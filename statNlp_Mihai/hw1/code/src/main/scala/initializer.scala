@@ -13,9 +13,15 @@ object initializer extends App with LazyLogging{
 
   LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME).asInstanceOf[Logger].setLevel(Level.INFO)
 
+  val getLemmas=false;
+  val getPos=false;
+  val getPosLemmas=true;
 
   var inputFileForAdjTemplate = "src/main/resources/brown_sample.txt"
   try {
+
+
+
     engine.readBrownToMem(inputFileForAdjTemplate)
   }
   catch {
@@ -24,7 +30,7 @@ object initializer extends App with LazyLogging{
     case e: Exception => {
 
 
-      // this works much better
+      // write the error to a log file
       val sw = new StringWriter
       e.printStackTrace(new PrintWriter(sw))
       logger.error(sw.toString)

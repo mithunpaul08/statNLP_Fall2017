@@ -27,6 +27,8 @@ object engine extends LazyLogging {
 
           if (tuple != "") {
 
+
+
             val lemmaPos = tuple.split("/")
 
             if (lemmaPos.size > 1) {
@@ -34,23 +36,52 @@ object engine extends LazyLogging {
               val pos = getMyValue(1, lemmaPos).getOrElse("Error")
 
 
-              //remove anything with punctuations
+              //remove any pos with punctuations
               val myPattern = "[a-zA-Z]+".r
               if (myPattern.findFirstIn(pos) != None) {
 
+                if (initializer.getLemmas == true) {
+                  //add all lemmas to a hash table
+                  if (htLemmas.contains(lemma)) {
+                    var count = htLemmas(lemma)
+                    count = count + 1
+                    htLemmas(lemma) = count
+                  }
+                  else {
+                    htLemmas += (lemma -> 1)
+                  }
 
-                if (htLemmas.contains(lemma)) {
-                  var count = htLemmas(lemma)
-                  count = count + 1
-                  htLemmas(lemma) = count
                 }
-                else {
-                  htLemmas += (lemma -> 1)
+
+                if (initializer.getPos == true) {
+                  //find top 10 pos most frequent pos tags
+                  if (htPos.contains(pos)) {
+                    var count = htPos(pos)
+                    count = count + 1
+                    htPos(pos) = count
+                  }
+                  else {
+                    htPos += (pos -> 1)
+                  }
                 }
+
+                if (initializer.getPosLemmas == true) {
+                  //find top 10 pos most frequent posLemma tags
+                  if (htBoth.contains(tuple)) {
+                    var count = htBoth(tuple)
+                    count = count + 1
+                    htBoth(tuple) = count
+                  }
+                  else {
+                    htBoth += (tuple -> 1)
+                  }
+                }
+
+
               }
               else {
                 //println("found dot.")
-              //  logger.info("Found a pattern that is not an alphabet. Its value is:" + pos)
+                //  logger.info("Found a pattern that is not an alphabet. Its value is:" + pos)
               }
 
 
@@ -63,9 +94,22 @@ object engine extends LazyLogging {
       }
     }
 
-    val htLemmas_sorted= scala.collection.immutable.ListMap(htLemmas.toSeq.sortWith(_._2>_._2): _*)
+    if (initializer.getLemmas == true) {
+      //sort the hashtable by value and pick top 10
+      val htLemmas_sorted = scala.collection.immutable.ListMap(htLemmas.toSeq.sortWith(_._2 > _._2): _*)
+      println("Lemmas top 10 :\n" + htLemmas_sorted.take(10).mkString("\n"))
+    }
 
-    println("Lemmas top 10 :\n" + htLemmas_sorted.take(10).mkString("\n"))
+    if (initializer.getPos == true) {
+      val htPos_sorted = scala.collection.immutable.ListMap(htPos.toSeq.sortWith(_._2 > _._2): _*)
+      println("POS top 10 :\n" + htPos_sorted.take(10).mkString("\n"))
+    }
+
+    if (initializer.getPosLemmas == true) {
+      val htBoth_sorted = scala.collection.immutable.ListMap(htBoth.toSeq.sortWith(_._2 > _._2): _*)
+      println("word-POS top 10 :\n" + htBoth_sorted.take(10).mkString("\n"))
+
+    }
     return htLemmas;
   }
 
