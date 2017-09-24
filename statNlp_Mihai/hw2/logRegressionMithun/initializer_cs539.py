@@ -10,7 +10,7 @@ import numpy as np
 import itertools
 from utils.read_data import readSpam
 from utils.process_input_data import tokenize
-
+from utils.mathStuff import calculateSigmoid
 
 import pickle
 
@@ -86,42 +86,23 @@ if __name__ == "__main__":
 
 
 
-        training_data = utils.read_data.readSpam(cwd,"SMSSpamCollection.train")
+        training_data= utils.read_data.readSpam(cwd,"SMSSpamCollection.train")
         print("size of entire_corpus is:" + str((training_data.shape)))
         featureVector=tokenize(training_data["data"] )
+        labels=training_data["label"]
         print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
-        fv_array=np.asarray(featureVector).reshape(-1)
-        print("dimension the fv_array is:"+str(fv_array.shape))
+        
         #create3 a theta/weight vector which has same number of rows, but one column
         theta=np.random.rand(noOfFeatures,1)
         print("shape of the numpy array theta:"+str((theta.shape)))
-        # trial1=np.array([1,2])
-        # trial2=np.array([2,1])
-        # dot=np.dot(trial1,trial2)
-        # print("trial:"+str(dot))
-        # sys.exit(1)
-
+        labelCounter=0;
 
         #for each of the message calculate theta.X
         for x in featureVector:
 
-           #  print("dimension the theta is:"+str(theta.shape))
-           #  print("dimension the x is:"+str(x.shape))
-           #  #fv_array=np.asarray(x)
-           #  #print("dimension the x is:"+str(fv_array.shape))
-           #  #print("shape of the theta is:"+str(theta.ndim))
-           #  #xx=np.squeeze(np.asarray(x[1]))
-           # # print("dimenstion of the x is:"+str(xx.shape))
-           #  print(str(np.dot(theta, x)))
-           #  #print("shape of the x after array is:"+str(np.array(x).shape))
-           #  sys.exit(1)
-           #
-           #  #d=np.dot(theta.transpose(),x)
-           #  #print("shape of d:"+str(d.shape))
-           #  print(theta.shape[-1] == x.shape[-2], theta.shape[1])
-           #  print(str(np.dot(theta, x.transpose())))
+
 
 
             print("shape of the theta transpose is:"+str(theta.transpose().shape))
@@ -129,14 +110,14 @@ if __name__ == "__main__":
             #print(theta.transpose().shape[-1] == x.transpose().shape[-2], theta.transpose().shape[1])
             #d=np.dot(x,theta.transpose())
             d=x*theta
-            print("value of d:"+str(d))
-            print("shape of d:"+str(d.shape))
-            #
+            #print("shape of d:"+str(d.shape))
+            sig=calculateSigmoid(d)
+            print("shape of labels is:"+str(labels.shape))
+            print("value of labelCounter is:"+str(labelCounter))
+            print("value of label is:"+str(labels[labelCounter]))
+            labelCounter=labelCounter+1
             sys.exit(1)
 
-            print("value of d:"+str(d))
-            print("shape of d:"+str(d.shape))
-            sys.exit(1)
 
 
     except:
