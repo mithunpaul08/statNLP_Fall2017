@@ -93,7 +93,7 @@ if __name__ == "__main__":
         print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
-        
+
         #create3 a theta/weight vector which has same number of rows, but one column
         theta=np.random.rand(noOfFeatures,1)
         print("shape of the numpy array theta:"+str((theta.shape)))
@@ -112,10 +112,36 @@ if __name__ == "__main__":
             d=x*theta
             #print("shape of d:"+str(d.shape))
             sig=calculateSigmoid(d)
-            print("shape of labels is:"+str(labels.shape))
-            print("value of labelCounter is:"+str(labelCounter))
-            print("value of label is:"+str(labels[labelCounter]))
+            sigint=sig[0][0][0]
+            thisLabel=str(labels[labelCounter])
+            # print("shape of labels is:"+str(labels.shape))
+            # print("value of labelCounter is:"+str(labelCounter))
+            print("value of thisLabel is:"+thisLabel)
+           # print("value of sig is:"+str(sig[0][0][0]))
+            #print("sahpe of sig is:"+str(sig[0][0][0].shape))
+
+            labelInt=1;
             labelCounter=labelCounter+1
+
+            #if its ham, call it label 0
+            if(thisLabel=="ham"):
+                labelInt=0
+
+            #find the value of y(i)-sigmoid
+            diff=labelInt-sigint
+            print("value of labelInt is:"+str(labelInt))
+            print("value of diff is:"+str(diff))
+
+            #feature_vector_this= np.array([[]])
+            #feature_vector_this=feature_vector_this.reshape(-1, 1)
+            #feature_vector_this=np.asarray(x.transpose()).reshape(-1)
+            #print(str(feature_vector_this))
+            #print(str(feature_vector_this.shape))
+
+            fvProduct=(x.T)*diff
+            #fvProduct=np.multiply((x.transpose()),diff)
+            print(str(fvProduct.shape))
+
             sys.exit(1)
 
 
