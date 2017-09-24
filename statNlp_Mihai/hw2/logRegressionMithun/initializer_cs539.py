@@ -13,6 +13,7 @@ from utils.process_input_data import tokenize
 from utils.mathStuff import calculateSigmoid
 from classifier.trainData import train
 from classifier.testData import test
+from utils.mathStuff import calculateAccuracy
 import pickle
 
 
@@ -72,9 +73,18 @@ if __name__ == "__main__":
 
         trainingData="SMSSpamCollection.train"
         testFile="SMSSpamCollection.test"
-        trainedWeights=train(trainingData)
-        result=test(trainedWeights,testFile)
-        print("size of result data ste is"+str(result.shape))
+        trainedWeights,vectorizer=train(trainingData)
+        pred_labels,gold_labels=test(trainedWeights,testFile,vectorizer)
+
+
+        #print(str(pred_labels))
+        #print(str(gold_labels))
+
+        print("size of result data ste is"+str(len(pred_labels)))
+        print("size of result data ste is"+str(len(gold_labels)))
+        accuracy=calculateAccuracy(gold_labels,pred_labels)
+        print("value of accuracy is is"+str((accuracy)))
+
 
 
 

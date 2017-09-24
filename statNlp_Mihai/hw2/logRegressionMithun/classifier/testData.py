@@ -32,7 +32,7 @@ do_testing_phase2=True;
 
 
 
-def test(theta,filename):
+def test(theta,filename,vectorizer):
 
     start_time = time.time()
 
@@ -66,14 +66,14 @@ def test(theta,filename):
 
         # #Do training for 2 classes related-unrelated
 
-        print ("going to train on data for related-unrelated splitting aka phase1")
+        print ("going to test on data ")
 
 
 
-        training_data= utils.read_data.readSpam(cwd,filename)
-        print("size of entire_corpus is:" + str((training_data.shape)))
-        featureVector=tokenize(training_data["data"] )
-        labels=training_data["label"]
+        testing_data= utils.read_data.readSpam(cwd,filename)
+        print("size of entire_corpus is:" + str((testing_data.shape)))
+        featureVector=vectorizer.transform(testing_data["data"] )
+        gold_labels=testing_data["label"]
         print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
@@ -82,8 +82,7 @@ def test(theta,filename):
         #theta=np.random.rand(noOfFeatures,1)
 
         #add a bias value place holder
-        print("shape of the numpy array theta before bias:"+str((theta.shape)))
-        print("shape of the numpy array theta before bias:"+str((theta.shape)))
+        print("shape of featureVector:"+str((featureVector.shape)))
 
         #theta = np.insert(theta,noOfFeatures,0.5,axis=0)
 
@@ -94,26 +93,36 @@ def test(theta,filename):
         labelCounter=0;
         predictedLabel=0;
         pred_int=[]
+        gold_int=[]
 
         for x in featureVector:
+            thisLabel=str(gold_labels[labelCounter])
+
+
+            labelInt=1;
+            labelCounter=labelCounter+1
 
 
             d=x*theta
             #print("shape of d:"+str(d.shape))
             sig=calculateSigmoid(d)
             sigint=sig[0][0][0]
-
-            if(sigint>0.5):
-                predictedLabel=1
+            #print("sigint:"+str(sigint))
+            if(sigint<1):
+                predictedLabel=0
+            else:
+                predictedLabel=1;
             pred_int.append(predictedLabel)
 
+            if(thisLabel=="ham"):
+                labelInt=0
+
+            gold_int.append(labelInt)
 
 
 
 
-
-        #print("bias after all iterations"+str(theta[noOfFeatures][0]))
-        return pred_int
+        return pred_int,gold_int
 
 
     except:

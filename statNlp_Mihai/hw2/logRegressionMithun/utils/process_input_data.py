@@ -41,7 +41,7 @@ def tokenize(document):
     vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english')
     X = vectorizer.fit_transform(document)
     #print("features are:"+str(vectorizer.get_feature_names()))
-    return X
+    return X,vectorizer
 
 def createAtfidfVectorizer():
     vectorizer2 = TfidfVectorizer(tokenizer=normalize, stop_words='english')

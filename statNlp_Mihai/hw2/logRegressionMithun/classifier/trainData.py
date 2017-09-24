@@ -72,7 +72,7 @@ def train(filename):
 
         training_data= utils.read_data.readSpam(cwd,filename)
         print("size of entire_corpus is:" + str((training_data.shape)))
-        featureVector=tokenize(training_data["data"] )
+        featureVector,vectorizer=tokenize(training_data["data"] )
         labels=training_data["label"]
         print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
@@ -154,7 +154,7 @@ def train(filename):
         print("theta after all iterations"+str(theta[5821][0]))
         print("value of labelCounter is:"+str(labelCounter))
         #print("bias after all iterations"+str(theta[noOfFeatures][0]))
-        return theta
+        return theta,vectorizer
 
 
     except:
