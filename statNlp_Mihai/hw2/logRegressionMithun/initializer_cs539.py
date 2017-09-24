@@ -97,6 +97,7 @@ if __name__ == "__main__":
         #create3 a theta/weight vector which has same number of rows, but one column
         theta=np.random.rand(noOfFeatures,1)
         print("shape of the numpy array theta:"+str((theta.shape)))
+
         labelCounter=0;
 
         #for each of the message calculate theta.X
@@ -105,8 +106,8 @@ if __name__ == "__main__":
 
 
 
-            print("shape of the theta transpose is:"+str(theta.transpose().shape))
-            print("shape of the x transpose is is:"+str(x.transpose().shape))
+            #print("shape of the theta transpose is:"+str(theta.transpose().shape))
+            #print("shape of the x transpose is is:"+str(x.transpose().shape))
             #print(theta.transpose().shape[-1] == x.transpose().shape[-2], theta.transpose().shape[1])
             #d=np.dot(x,theta.transpose())
             d=x*theta
@@ -116,7 +117,7 @@ if __name__ == "__main__":
             thisLabel=str(labels[labelCounter])
             # print("shape of labels is:"+str(labels.shape))
             # print("value of labelCounter is:"+str(labelCounter))
-            print("value of thisLabel is:"+thisLabel)
+           # print("value of thisLabel is:"+thisLabel)
            # print("value of sig is:"+str(sig[0][0][0]))
             #print("sahpe of sig is:"+str(sig[0][0][0].shape))
 
@@ -129,8 +130,8 @@ if __name__ == "__main__":
 
             #find the value of y(i)-sigmoid
             diff=labelInt-sigint
-            print("value of labelInt is:"+str(labelInt))
-            print("value of diff is:"+str(diff))
+           # print("value of labelInt is:"+str(labelInt))
+            #print("value of diff is:"+str(diff))
 
             #feature_vector_this= np.array([[]])
             #feature_vector_this=feature_vector_this.reshape(-1, 1)
@@ -140,10 +141,17 @@ if __name__ == "__main__":
 
             fvProduct=(x.T)*diff
             #fvProduct=np.multiply((x.transpose()),diff)
-            print(str(fvProduct.shape))
+            #print("fvProduct "+str(fvProduct))
+            if(labelCounter==1):
+                print("theta before"+str(theta[805][0]))
 
-            sys.exit(1)
+            #new theta value is old theta plus this new fVproduct
+            theta=theta+fvProduct
+            if(labelCounter==1):
+                print("theta after for 1st eleement"+str(theta[805][0]))
 
+
+        print("theta after all iterations"+str(theta[805][0]))
 
 
     except:
