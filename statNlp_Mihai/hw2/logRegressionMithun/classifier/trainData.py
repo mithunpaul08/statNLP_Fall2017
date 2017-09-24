@@ -106,98 +106,126 @@ def train(filename,miniBatchSize):
         #i.e batch size =5 now
 
         #give me all feature vector columns, but only 5 vectors at a time
-        minibatch=featureVector[0:miniBatchSize,:]
+        batchStartIndex=0
+        batchendIndex=batchStartIndex+miniBatchSize
 
-        #for each of this split/batch, run through each item
-        print("size of minibatch:"+str(minibatch.shape))
+        noOfBatches=rowCount/miniBatchSize
+        print("noOfBatches:"+str(noOfBatches))
 
-
-        #create a delta like the same shape of theta, but it will be initialized to all zeroes
-        delta=np.zeros((noOfFeatures,1))
-        print("size of delta is :"+str(delta.shape))
         print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
-        print("value of a random eleement in delta before one batch started"+str(delta[5821][0]))
 
-        #calculate delta for each entry in the minibatch. This is basically one data point, with 6054 features
-        for x in minibatch:
+        print("shape of the featureVector is:"+str(featureVector.shape))
+        #run this for all the number of batches
+        for batchCount in range (0,int(noOfBatches)):
 
-
-
-            #add a fake feature
-            # print("shape of the xT array before bias:"+str((x.T.shape)))
-            # #newx=np.stack([x.T,biasForX],axis=0)
-            # print("shape of the x array after bias:"+str((newx.shape)))
-
-            #print("shape of the theta transpose is:"+str(theta.transpose().shape))
-            #print("shape of the x transpose is is:"+str(x.transpose().shape))
-            #print(theta.transpose().shape[-1] == x.transpose().shape[-2], theta.transpose().shape[1])
-            #d=np.dot(x,theta.transpose())
-            d=x*theta
-            #print("shape of d:"+str(d.shape))
-            sig=calculateSigmoid(d)
-            sigint=sig[0][0][0]
-            thisLabel=str(labels[labelCounter])
-            # print("shape of labels is:"+str(labels.shape))
-            # print("value of labelCounter is:"+str(labelCounter))
-           # print("value of thisLabel is:"+thisLabel)
-           # print("value of sig is:"+str(sig[0][0][0]))
-            #print("sahpe of sig is:"+str(sig[0][0][0].shape))
-
-            labelInt=1;
-            labelCounter=labelCounter+1
-
-            #if its ham, call it label 0
-            if(thisLabel=="ham"):
-                labelInt=0
-
-            #find the value of y(i)-sigmoid
-
-            #do yi-hi (this is a scalar value)
-            diff=labelInt-sigint
-           # print("value of labelInt is:"+str(labelInt))
-            #print("value of diff is:"+str(diff))
-
-            #feature_vector_this= np.array([[]])
-            #feature_vector_this=feature_vector_this.reshape(-1, 1)
-            #feature_vector_this=np.asarray(x.transpose()).reshape(-1)
-            #print(str(feature_vector_this))
-            #print(str(feature_vector_this.shape))
-
-            fvProduct=(x.T)*diff
-
-            #add this product thing to delta
-            delta=delta+fvProduct;
-
-            #fvProduct=np.multiply((x.transpose()),diff)
-            #print("fvProduct "+str(fvProduct))
-            #if(labelCounter==1):
-            #print("theta value of a random element before"+str(theta[5821][0]))
-            #print("delta value of a random element before"+str(delta[5821][0]))
+            #print("value of a batchStartIndex is:"+str(batchStartIndex))
+            #print("value of a miniBatchSize is:"+str(miniBatchSize))
+            minibatch=featureVector[batchStartIndex:batchendIndex,:]
+            #print("shape of the minibatch is:"+str(minibatch.shape))
 
 
 
+            #for each of this element in a mini batch, run through each item
+            #print("size of minibatch:"+str(minibatch.shape))
 
 
-            #new theta value is old theta plus this new fVproduct(vector)
-            #update, do this after teh end of every batch, but with the average fvProduct from the given batch
-            #add this new delta to the theta
+            #create a delta like the same shape of theta, but it will be initialized to all zeroes. this is initialized to zeroes for all batches
+            delta=np.zeros((noOfFeatures,1))
 
-            #print("one element finished running")
-            #print("theta value of a random element before"+str(theta[5821][0]))
-            #print("delta value of a random element before"+str(delta[5821][0]))
-            #sys.exit(1)
+            #print("size of delta is :"+str(delta.shape))
+            #print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
+            #print("value of a random eleement in delta before one batch started"+str(delta[5821][0]))
 
-            #if(labelCounter==1):
-        print("one batch finished running")
-        #at the end of each batch divdide the delta by the batch size
-        delta =delta/(miniBatchSize)
-
-        print("value of a random eleement in delta after one batch "+str(delta[5821][0]))
-        theta=theta+delta
-        print("theta after one batch for a random eleement"+str(theta[5821][0]))
+            #calculate delta for each entry in the minibatch. This is basically one data point, with 6054 features
+            for x in minibatch:
 
 
-        print("shape of thetat is:"+str(theta.shape))
+                print("This is item number"+str(labelCounter)+" in Batch number:"+str(batchCount))
+                #add a fake feature
+                # print("shape of the xT array before bias:"+str((x.T.shape)))
+                # #newx=np.stack([x.T,biasForX],axis=0)
+                # print("shape of the x array after bias:"+str((newx.shape)))
+
+                #print("shape of the theta transpose is:"+str(theta.transpose().shape))
+                #print("shape of the x transpose is is:"+str(x.transpose().shape))
+                #print(theta.transpose().shape[-1] == x.transpose().shape[-2], theta.transpose().shape[1])
+                #d=np.dot(x,theta.transpose())
+                d=x*theta
+                #print("shape of d:"+str(d.shape))
+                sig=calculateSigmoid(d)
+                sigint=sig[0][0][0]
+                thisLabel=str(labels[labelCounter])
+                # print("shape of labels is:"+str(labels.shape))
+                # print("value of labelCounter is:"+str(labelCounter))
+               # print("value of thisLabel is:"+thisLabel)
+               # print("value of sig is:"+str(sig[0][0][0]))
+                #print("sahpe of sig is:"+str(sig[0][0][0].shape))
+
+                labelInt=1;
+                labelCounter=labelCounter+1
+
+                #if its ham, call it label 0
+                if(thisLabel=="ham"):
+                    labelInt=0
+
+                #find the value of y(i)-sigmoid
+
+                #do yi-hi (this is a scalar value)
+                diff=labelInt-sigint
+               # print("value of labelInt is:"+str(labelInt))
+                #print("value of diff is:"+str(diff))
+
+                #feature_vector_this= np.array([[]])
+                #feature_vector_this=feature_vector_this.reshape(-1, 1)
+                #feature_vector_this=np.asarray(x.transpose()).reshape(-1)
+                #print(str(feature_vector_this))
+                #print(str(feature_vector_this.shape))
+
+                fvProduct=(x.T)*diff
+
+                #add this product thing to delta
+                delta=delta+fvProduct;
+
+                #fvProduct=np.multiply((x.transpose()),diff)
+                #print("fvProduct "+str(fvProduct))
+                #if(labelCounter==1):
+                #print("theta value of a random element before"+str(theta[5821][0]))
+                #print("delta value of a random element before"+str(delta[5821][0]))
+
+
+
+
+
+                #new theta value is old theta plus this new fVproduct(vector)
+                #update, do this after teh end of every batch, but with the average fvProduct from the given batch
+                #add this new delta to the theta
+
+                #print("one element finished running")
+                #print("theta value of a random element before"+str(theta[5821][0]))
+                #print("delta value of a random element before"+str(delta[5821][0]))
+                #sys.exit(1)
+
+                #if(labelCounter==1):
+
+            print("done with batch number:"+str(batchCount))
+
+            #print("one batch finished running")
+            #at the end of each batch divdide the delta by the batch size
+            delta =delta/(miniBatchSize)
+
+            #print("value of a random eleement in delta after one batch "+str(delta[5821][0]))
+            theta=theta+delta
+
+            #after every batch increase the start index by batch size
+            batchStartIndex=batchStartIndex+miniBatchSize
+            batchendIndex=batchStartIndex+miniBatchSize
+
+            #print("theta after one batch for a random eleement"+str(theta[5821][0]))
+
+
+            #print("shape of thetat is:"+str(theta.shape))
+
+        print("done with all batches. value of batch count is:"+str(batchCount))
         sys.exit(1)
 
 
