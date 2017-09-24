@@ -116,6 +116,7 @@ def train(filename,miniBatchSize):
         delta=np.zeros((noOfFeatures,1))
         print("size of delta is :"+str(delta.shape))
         print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
+        print("value of a random eleement in delta before one batch started"+str(delta[5821][0]))
 
         #calculate delta for each entry in the minibatch. This is basically one data point, with 6054 features
         for x in minibatch:
@@ -169,25 +170,35 @@ def train(filename,miniBatchSize):
 
             #fvProduct=np.multiply((x.transpose()),diff)
             #print("fvProduct "+str(fvProduct))
-            if(labelCounter==1):
-                print("theta before"+str(theta[5821][0]))
+            #if(labelCounter==1):
+            #print("theta value of a random element before"+str(theta[5821][0]))
+            #print("delta value of a random element before"+str(delta[5821][0]))
 
-            print("one batch finished running")
 
-            #at the end of each batch divdide the delta by the batch size
-            delta =delta/(miniBatchSize)
+
+
+
             #new theta value is old theta plus this new fVproduct(vector)
             #update, do this after teh end of every batch, but with the average fvProduct from the given batch
             #add this new delta to the theta
-            theta=theta+delta
+
+            #print("one element finished running")
+            #print("theta value of a random element before"+str(theta[5821][0]))
+            #print("delta value of a random element before"+str(delta[5821][0]))
+            #sys.exit(1)
 
             #if(labelCounter==1):
-            print("theta after one batch for a random eleement"+str(theta[5821][0]))
+        print("one batch finished running")
+        #at the end of each batch divdide the delta by the batch size
+        delta =delta/(miniBatchSize)
 
-            print("one batch finished running")
+        print("value of a random eleement in delta after one batch "+str(delta[5821][0]))
+        theta=theta+delta
+        print("theta after one batch for a random eleement"+str(theta[5821][0]))
 
-            print("shape of thetat is:"+str(theta.shape))
-            sys.exit(1)
+
+        print("shape of thetat is:"+str(theta.shape))
+        sys.exit(1)
 
 
 
