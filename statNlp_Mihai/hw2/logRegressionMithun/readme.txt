@@ -1,0 +1,7 @@
+My code works on python3.4.6
+
+I have tested it on a conda environment with the follwing python packages installed:
+
+conda install numpy
+conda install scikit-learn
+conda install nltk
