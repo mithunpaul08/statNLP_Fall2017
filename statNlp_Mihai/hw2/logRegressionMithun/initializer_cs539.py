@@ -47,6 +47,7 @@ if __name__ == "__main__":
 
         #sys.exit(1)
         miniBatchSize=5;
+        noOfEpochs=10;
 
         #nltk.download("wordnet", "whatever_the_absolute_path_to_myapp_is/nltk_data/")
         print("number of arguments is"+ str(len(sys.argv)))
@@ -73,7 +74,7 @@ if __name__ == "__main__":
 
         trainingData="SMSSpamCollection.train"
         testFile="SMSSpamCollection.test"
-        trainedWeights,vectorizer=train(trainingData)
+        trainedWeights,vectorizer=train(trainingData,miniBatchSize)
         pred_labels,gold_labels=test(trainedWeights,testFile,vectorizer)
 
 

@@ -32,7 +32,7 @@ do_testing_phase2=True;
 
 
 
-def train(filename):
+def train(filename,miniBatchSize):
 
     start_time = time.time()
 
@@ -97,7 +97,28 @@ def train(filename):
         # biasForX=np.mat(biasForX)
         # print("shape of the biasForX after matrix:"+str((biasForX.shape)))
         #for each of the message calculate theta.X
-        for x in featureVector:
+
+        # run through all the batches.
+        # #//run through each item in  a batch
+
+        #splitting for the time being based on a multiple of 5, since we know that there are only 3345 documents. However
+        #this has to be done in a much smarter way later.
+        #i.e batch size =5 now
+
+        #give me all feature vector columns, but only 5 vectors at a time
+        minibatch=featureVector[0:miniBatchSize,:]
+
+        #for each of this split/batch, run through each item
+        print("size of minibatch:"+str(minibatch.shape))
+
+
+        #create a delta like the same shape of theta, but it will be initialized to all zeroes
+        delta=np.zeros((noOfFeatures,1))
+        print("size of delta is :"+str(delta.shape))
+        print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
+
+        #calculate delta for each entry in the minibatch. This is basically one data point, with 6054 features
+        for x in minibatch:
 
 
 
@@ -129,6 +150,8 @@ def train(filename):
                 labelInt=0
 
             #find the value of y(i)-sigmoid
+
+            #do yi-hi (this is a scalar value)
             diff=labelInt-sigint
            # print("value of labelInt is:"+str(labelInt))
             #print("value of diff is:"+str(diff))
@@ -140,15 +163,32 @@ def train(filename):
             #print(str(feature_vector_this.shape))
 
             fvProduct=(x.T)*diff
+
+            #add this product thing to delta
+            delta=delta+fvProduct;
+
             #fvProduct=np.multiply((x.transpose()),diff)
             #print("fvProduct "+str(fvProduct))
             if(labelCounter==1):
                 print("theta before"+str(theta[5821][0]))
 
-            #new theta value is old theta plus this new fVproduct
-            theta=theta+fvProduct
-            if(labelCounter==1):
-                print("theta after for 1st eleement"+str(theta[5821][0]))
+            print("one batch finished running")
+
+            #at the end of each batch divdide the delta by the batch size
+            delta =delta/(miniBatchSize)
+            #new theta value is old theta plus this new fVproduct(vector)
+            #update, do this after teh end of every batch, but with the average fvProduct from the given batch
+            #add this new delta to the theta
+            theta=theta+delta
+
+            #if(labelCounter==1):
+            print("theta after one batch for a random eleement"+str(theta[5821][0]))
+
+            print("one batch finished running")
+
+            print("shape of thetat is:"+str(theta.shape))
+            sys.exit(1)
+
 
 
         print("theta after all iterations"+str(theta[5821][0]))
