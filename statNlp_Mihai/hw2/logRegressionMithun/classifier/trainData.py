@@ -32,7 +32,7 @@ do_testing_phase2=True;
 
 
 
-def train(filename,miniBatchSize,noOfEpochs):
+def train(filename,miniBatchSize,maxNoOfEpochs):
 
     start_time = time.time()
 
@@ -85,8 +85,8 @@ def train(filename,miniBatchSize,noOfEpochs):
         #print("first row of feature vector :"+str(featureVector[0:1,:]))
 
         #do a shuffle at the beginning of each epoch. Note that theta doesnt change.
-        for epoch in range(0,noOfEpochs):
-            print("starting a new Epoch. This is Epoch Number:"+str(epoch))
+        for epoch in range(0,maxNoOfEpochs):
+            print("starting a new Epoch. This is Epoch Number:"+str(epoch+1))
 
 
             #combine the feature vector matrix and the labels so that when we shuffle we shuffle both together
@@ -103,7 +103,7 @@ def train(filename,miniBatchSize,noOfEpochs):
             np.random.shuffle(index)
             featureVector= featureVector[index, :]
 
-            print("size of featureVector  is:" + str((featureVector.shape)))
+            #print("size of featureVector  is:" + str((featureVector.shape)))
             #sys.exit(1)
             #print("first row of feature vector :"+str(featureVector[0:1,:]))
             
