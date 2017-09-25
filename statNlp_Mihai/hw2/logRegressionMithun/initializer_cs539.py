@@ -14,7 +14,7 @@ from utils.mathStuff import calculateSigmoid
 from classifier.trainData import train
 from classifier.testData import test
 from utils.mathStuff import calculateAccuracy
-import pickle
+import pickle as pk
 
 
 import time
@@ -87,7 +87,23 @@ if __name__ == "__main__":
             #tuning batch size. For each of the batch size. print accuracy alone
             for miniBatchSize in range(1,maxMiniBatchSize):
                  trainedWeights,vectorizer=train(trainingData,miniBatchSize,maxNoOfEpochs)
-                 print("done with training.")
+                 print("done with training. Going to save to pickle")
+
+                 fileObject_trainedWeights = open("trainedWeights.pkl",'wb')
+                 pk.dump(trainedWeights, fileObject_trainedWeights)
+                 fileObject_trainedWeights.close()
+
+                 fileObject_vectorizer = open("vectorizer.pkl",'wb')
+                 pk.dump(vectorizer, fileObject_vectorizer)
+                 fileObject_vectorizer.close()
+                 sys.exit(1)
+
+                 trainedWeights_from_pkl=pk.load('trainedWeights.pkl')
+                 vectorizer_from_pkl=pk.load('vectorizer.pkl')
+
+
+
+
                  #print("size of trainedWeights is.:"+str(trainedWeights.shape))
                  #print("size of vectorizer is.:"+(vectorizer.))
                  pred_labels,gold_labels=test(trainedWeights,devData,vectorizer)
