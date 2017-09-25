@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
         trainingData="SMSSpamCollection.train"
         testFile="SMSSpamCollection.test"
-        trainedWeights,vectorizer=train(trainingData,miniBatchSize)
+        trainedWeights,vectorizer=train(trainingData,miniBatchSize,noOfEpochs)
         pred_labels,gold_labels=test(trainedWeights,testFile,vectorizer)
 
 
