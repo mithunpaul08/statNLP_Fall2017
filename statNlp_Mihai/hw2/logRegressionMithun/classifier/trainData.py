@@ -11,8 +11,8 @@ import itertools
 from utils.read_data import readSpam
 from utils.process_input_data import tokenize
 from utils.mathStuff import calculateSigmoid
-
-import pickle
+from classifier.testData import testWithGivenPickle
+import pickle as pk
 
 
 import time
@@ -29,7 +29,76 @@ do_testing_phase1=True;
 do_testing_phase2=True;
 
 
+def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeStr):
+    maxMiniBatchSize=int(maxMiniBatchSizeStr)
+    maxNoOfEpochs=int(maxNoOfEpochsStr)
+    doDev=False;
+    maxMiniBatchSizeStr="1";
+    maxNoOfEpochsStr="1";
 
+
+
+
+
+
+    # if(len(sys.argv)>2):
+    #     maxMiniBatchSizeStr=sys.argv[1]
+    #     maxNoOfEpochsStr=sys.argv[2]
+    #     print("maxMiniBatchSize:"+ str(maxMiniBatchSizeStr))
+    #     print("maxNoOfEpochs:"+ str(maxNoOfEpochsStr))
+    #
+    # else:
+    #     print("Error: No max epoch and max batch size provided")
+    #     sys.exit(1)
+    #
+    # userinput=input("Is it correct. press y or n:")
+    # if(userinput=="n"):
+    #     sys.exit(1);
+    # else:
+
+
+
+
+
+
+
+
+
+        #make sure that the current working directory is the starting level
+
+
+    cwd = os.getcwd()
+
+    base_dir_name = os.path.dirname(os.path.abspath(sys.argv[0]))
+    #print("base directory is:" + base_dir_name)
+    if(base_dir_name != cwd):
+        os.chdir(base_dir_name)
+
+    print ("going to train on data")
+
+
+
+    #to tune on dev data
+
+    #tuning batch size. For each of the batch size. print accuracy alone
+    for miniBatchSize in range(1,maxMiniBatchSize+1):
+        print("*******Starting a new run with miniBatchSize:"+str(miniBatchSize))
+        trainedWeights,vectorizer=train(trainingData,miniBatchSize,maxNoOfEpochs)
+        print("done with training. Going to save to pickle")
+        file1="trainedWeights"+str(miniBatchSize)+".pkl"
+        file2="vectorizer"+str(miniBatchSize)+".pkl"
+
+        fileObject_trainedWeights = open(file1,'wb')
+        pk.dump(trainedWeights, fileObject_trainedWeights)
+        fileObject_trainedWeights.close()
+
+        fileObject_vectorizer = open(file2,'wb')
+        pk.dump(vectorizer, fileObject_vectorizer)
+        fileObject_vectorizer.close()
+        print("done training. Stored pickles as:"+file2+":and:"+file1+". Going to test with them")
+        testWithGivenPickle(testingData,file1,file2)
+
+    print("done with training and Testing . Going to main menu")
 
 
 def train(filename,miniBatchSize,maxNoOfEpochs):

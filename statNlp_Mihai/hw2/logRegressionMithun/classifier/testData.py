@@ -13,21 +13,36 @@ from utils.process_input_data import tokenize
 from utils.mathStuff import calculateSigmoid
 
 import pickle
-
+from utils.mathStuff import calculateAccuracy
 
 import time
+import pickle as pk
 
 
-#in phase 1, we split teh data set to related- unrelated
-do_training_phase1=False;
-do_training_phase2=True;
+def testWithGivenPickle(filename,trainedWeightsPkl,vectorizerPkl):
+    fileObject_trainedWeights = open(trainedWeightsPkl,'rb')
+    trainedWeights_from_pkl=pk.load(fileObject_trainedWeights)
 
-do_validation_phase1=False;
-do_validation_phase2=False;
+    fileObject_vectorizer = open(vectorizerPkl,'rb')
+    vectorizer_from_pkl=pk.load(fileObject_vectorizer)
 
-do_testing_phase1=True;
-do_testing_phase2=True;
+    pred_labels,gold_labels=test(trainedWeights_from_pkl,filename,vectorizer_from_pkl)
+    accuracy=calculateAccuracy(gold_labels,pred_labels)
+    print("accuracy:"+str((accuracy)))
 
+
+
+
+def testWithAlreadyTrainedPickle(filename):
+    fileObject_trainedWeights = open('trainedWeights.pkl','rb')
+    trainedWeights_from_pkl=pk.load(fileObject_trainedWeights)
+
+    fileObject_vectorizer = open('vectorizer.pkl','rb')
+    vectorizer_from_pkl=pk.load(fileObject_vectorizer)
+
+    pred_labels,gold_labels=test(trainedWeights_from_pkl,filename,vectorizer_from_pkl)
+    accuracy=calculateAccuracy(gold_labels,pred_labels)
+    print("accuracy:"+str((accuracy)))
 
 
 
