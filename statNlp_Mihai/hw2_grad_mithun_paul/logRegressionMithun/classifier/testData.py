@@ -6,7 +6,7 @@ import utils;
 import csv;
 import collections
 import numpy as np
-
+import pandas as pd
 import itertools
 from utils.read_data import readSpam
 from utils.process_input_data import tokenize
@@ -29,11 +29,14 @@ def testWithGivenPickle(filename,trainedWeightsPkl,vectorizerPkl):
     pred_labels,gold_labels=test(trainedWeights_from_pkl,filename,vectorizer_from_pkl)
     accuracy=calculateAccuracy(gold_labels,pred_labels)
     print("accuracy:"+str((accuracy)))
+    sys.exit(1)
 
 
 
 
 def testWithAlreadyTrainedPickle(filename):
+    print("Going to load pickle:trainedWeights_golden.pkl")
+    print("Going to load pickle:vectorizer_golden.pkl")
     fileObject_trainedWeights = open('trainedWeights_golden.pkl','rb')
     trainedWeights_from_pkl=pk.load(fileObject_trainedWeights)
 
@@ -81,7 +84,7 @@ def test(theta,filename,vectorizer):
 
         # #Do training for 2 classes related-unrelated
 
-        #print ("going to test on data ")
+        print ("going to read test data ")
 
 
 
@@ -89,9 +92,10 @@ def test(theta,filename,vectorizer):
         #print("size of entire_corpus is:" + str((testing_data.shape)))
         featureVector=vectorizer.transform(testing_data["data"] )
 
-    #     word_freq_df = pd.DataFrame({'term': vectorizer.get_feature_names(), 'occurrences':np.asarray(X.sum(axis=0)).ravel().tolist()})
-    # word_freq_df['frequency'] = word_freq_df['occurrences']/np.sum(word_freq_df['occurrences'])
-    # print word_freq_df.sort('occurrences',ascending = False).head()
+        print ("done reading and vectorizing test data ")
+
+
+
 
 
         gold_labels=testing_data["label"]
@@ -128,7 +132,7 @@ def test(theta,filename,vectorizer):
             ##print("shape of d:"+str(d.shape))
             sig=calculateSigmoid(d)
             sigint=sig[0][0][0]
-            ##print("sigint:"+str(sigint))
+            #print("sigint:"+str(sigint))
             if(sigint<1):
                 predictedLabel=0
             else:

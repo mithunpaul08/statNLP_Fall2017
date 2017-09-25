@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
             print("Welcome to Spam Classifier. Please pick one of the following:")
             print("To test using an already trained classifier, Press:1")
-            print("To train a model Press:2")
+            print("To train a model and test with it, Press:2")
             print("To tune an already trained model Press:3")
             print("To exit Press:0")
 
