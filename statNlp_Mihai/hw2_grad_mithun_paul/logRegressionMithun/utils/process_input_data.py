@@ -53,7 +53,7 @@ def tokenizeWithBigrams(document):
 
 def tokenizeWithBothUniBigrams(document):
 
-    vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english',ngram_range=(1, 2))
+    vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english',ngram_range=(1, 2), min_df=3)
     X = vectorizer.fit_transform(document)
     ##print("features are:"+str(vectorizer.get_feature_names()))
     return X,vectorizer

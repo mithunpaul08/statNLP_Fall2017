@@ -41,17 +41,6 @@ def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeSt
 
 
 
-
-
-
-
-
-
-
-
-        #make sure that the current working directory is the starting level
-
-
     cwd = os.getcwd()
 
     base_dir_name = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -70,8 +59,11 @@ def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeSt
         print("*******Starting a new run with miniBatchSize:"+str(miniBatchSize))
         trainedWeights,vectorizer=train(trainingData,miniBatchSize,maxNoOfEpochs)
         print("done with training. Going to save to pickle")
-        file1="trainedWeights"+str(miniBatchSize)+".pkl"
-        file2="vectorizer"+str(miniBatchSize)+".pkl"
+        #file1="trainedWeights"+str(miniBatchSize)+".pkl"
+        #file2="vectorizer"+str(miniBatchSize)+".pkl"
+
+        file1="trainedWeights.pkl"
+        file2="vectorizer.pkl"
 
         fileObject_trainedWeights = open(file1,'wb')
         pk.dump(trainedWeights, fileObject_trainedWeights)

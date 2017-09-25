@@ -34,10 +34,10 @@ def testWithGivenPickle(filename,trainedWeightsPkl,vectorizerPkl):
 
 
 def testWithAlreadyTrainedPickle(filename):
-    fileObject_trainedWeights = open('trainedWeights.pkl','rb')
+    fileObject_trainedWeights = open('trainedWeights_golden.pkl','rb')
     trainedWeights_from_pkl=pk.load(fileObject_trainedWeights)
 
-    fileObject_vectorizer = open('vectorizer.pkl','rb')
+    fileObject_vectorizer = open('vectorizer_golden.pkl','rb')
     vectorizer_from_pkl=pk.load(fileObject_vectorizer)
 
     pred_labels,gold_labels=test(trainedWeights_from_pkl,filename,vectorizer_from_pkl)
@@ -88,6 +88,12 @@ def test(theta,filename,vectorizer):
         testing_data= utils.read_data.readSpam(cwd,filename)
         #print("size of entire_corpus is:" + str((testing_data.shape)))
         featureVector=vectorizer.transform(testing_data["data"] )
+
+    #     word_freq_df = pd.DataFrame({'term': vectorizer.get_feature_names(), 'occurrences':np.asarray(X.sum(axis=0)).ravel().tolist()})
+    # word_freq_df['frequency'] = word_freq_df['occurrences']/np.sum(word_freq_df['occurrences'])
+    # print word_freq_df.sort('occurrences',ascending = False).head()
+
+
         gold_labels=testing_data["label"]
         #print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
