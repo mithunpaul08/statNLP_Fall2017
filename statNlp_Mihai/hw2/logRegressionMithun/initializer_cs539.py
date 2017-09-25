@@ -64,15 +64,16 @@ if __name__ == "__main__":
         #to tune on dev data
 
         #tuning batch size. For each of the batch size. print accuracy alone
-        for miniBatchSize in range(1,2):
+        for miniBatchSize in range(5,6):
              trainedWeights,vectorizer=train(trainingData,miniBatchSize,noOfEpochs)
              print("done with training.")
-             print("size of trainedWeights is.:"+trainedWeights.shape)
-             print("size of vectorizer is.:"+len(vectorizer))
+             #print("size of trainedWeights is.:"+str(trainedWeights.shape))
+             #print("size of vectorizer is.:"+(vectorizer.))
              pred_labels,gold_labels=test(trainedWeights,devData,vectorizer)
              accuracy=calculateAccuracy(gold_labels,pred_labels)
-             print("miniBatchSize:"+str(miniBatchSize)+"accuracy:"+str((accuracy)))
+             print("miniBatchSize:"+str(miniBatchSize)+" accuracy:"+str((accuracy)))
 
+        print("done with training and dev. Going to exit")
         sys.exit(1)
 ##################################end of dev phase####################
 

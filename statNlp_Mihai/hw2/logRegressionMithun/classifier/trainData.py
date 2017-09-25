@@ -59,7 +59,7 @@ def train(filename,miniBatchSize,noOfEpochs):
         #print("size of entire_corpus is:" + str((training_data.shape)))
         featureVector,vectorizer=tokenize(training_data["data"] )
         labels=training_data["label"]
-        #print("size of tokenized corpus is:" + str((featureVector.shape)))
+
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
 
@@ -75,7 +75,7 @@ def train(filename,miniBatchSize,noOfEpochs):
         # #print("bias before all iterations"+str(theta[noOfFeatures][0]))
         #
         #
-        labelCounter=0;
+
         # biasForX=np.array([[1]])
         # biasForX[0][0]=-1
         # #print("shape of the biasForX:"+str((biasForX.shape)))
@@ -86,12 +86,25 @@ def train(filename,miniBatchSize,noOfEpochs):
 
         #do a shuffle at the beginning of each epoch. Note that theta doesnt change.
         for epoch in range(0,noOfEpochs):
+            print("starting a new Epoch. This is Epoch Number:"+str(epoch))
 
-            #featureVector=np.random.shuffle(featureVector)
+
+            #combine the feature vector matrix and the labels so that when we shuffle we shuffle both together
+            # print("size of labels  is:" + str((labels.shape)))
+            # labels=np.mat(labels)
+            # print("size of labels  is:" + str((labels.T.shape)))
+            # print("size of featureVector  is:" + str((featureVector.shape)))
+            # combined_label_fv=np.concatenate((labels.T,featureVector),axis=1)
+            # print("size of combined_label_fv  is:" + str((combined_label_fv.shape)))
+
+
             #to shuffle a sparse matrix
             index = np.arange(np.shape(featureVector)[0])
             np.random.shuffle(index)
             featureVector= featureVector[index, :]
+
+            print("size of featureVector  is:" + str((featureVector.shape)))
+            #sys.exit(1)
             #print("first row of feature vector :"+str(featureVector[0:1,:]))
             
 
@@ -109,6 +122,7 @@ def train(filename,miniBatchSize,noOfEpochs):
             #print("rowCount:"+str(rowCount))
             #print("miniBatchSize:"+str(miniBatchSize))
             #print("noOfBatches:"+str(noOfBatches))
+            labelCounter=0;
 
 
 
@@ -118,7 +132,7 @@ def train(filename,miniBatchSize,noOfEpochs):
             #run this for all the number of batches
             for batchCount in range (0,int(noOfBatches)):
 
-                print("Epoch Number:"+str(epoch)+" Batch number:"+str(batchCount))
+                #print("Epoch Number:"+str(epoch)+" Batch number:"+str(batchCount))
 
                 #print("value of a batchStartIndex is:"+str(batchStartIndex))
                 #print("value of a miniBatchSize is:"+str(miniBatchSize))
@@ -160,7 +174,10 @@ def train(filename,miniBatchSize,noOfEpochs):
                     thisLabel=str(labels[labelCounter])
                     # #print("shape of labels is:"+str(labels.shape))
                     # #print("value of labelCounter is:"+str(labelCounter))
-                   # #print("value of thisLabel is:"+thisLabel)
+                    #print("X is:"+str(x))
+                    #print("value of thisLabel is:"+thisLabel)
+
+
                    # #print("value of sig is:"+str(sig[0][0][0]))
                     #print("sahpe of sig is:"+str(sig[0][0][0].shape))
 
@@ -186,7 +203,7 @@ def train(filename,miniBatchSize,noOfEpochs):
                     delta=delta+fvProduct;
 
                     #fvProduct=np.multiply((x.transpose()),diff)
-                    #print("fvProduct "+str(fvProduct))
+                    #####print("fvProduct "+str(fvProduct))
                     #if(labelCounter==1):
                     #print("theta value of a random element before"+str(theta[5821][0]))
                     #print("delta value of a random element before"+str(delta[5821][0]))
@@ -207,6 +224,7 @@ def train(filename,miniBatchSize,noOfEpochs):
                     #if(labelCounter==1):
 
                 #print("done with batch number:"+str(batchCount))
+
 
                 #print("one batch finished running")
                 #at the end of each batch divdide the delta by the batch size
@@ -229,9 +247,9 @@ def train(filename,miniBatchSize,noOfEpochs):
 
 
 
-        #print("theta after all iterations"+str(theta[5821][0]))
+        #print("theta after all epochs"+str(theta[5821][0]))
         #print("value of labelCounter is:"+str(labelCounter))
-        #print("bias after all iterations"+str(theta[noOfFeatures][0]))
+        ##print("bias after all iterations"+str(theta[noOfFeatures][0]))
         return theta,vectorizer
 
 

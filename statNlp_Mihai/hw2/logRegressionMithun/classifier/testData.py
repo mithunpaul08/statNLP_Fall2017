@@ -42,7 +42,7 @@ def test(theta,filename,vectorizer):
         #sys.exit(1)
 
         #nltk.download("wordnet", "whatever_the_absolute_path_to_myapp_is/nltk_data/")
-        print("number of arguments is"+ str(len(sys.argv)))
+        #print("number of arguments is"+ str(len(sys.argv)))
 
 
 
@@ -58,7 +58,7 @@ def test(theta,filename,vectorizer):
         cwd = os.getcwd()
 
         base_dir_name = os.path.dirname(os.path.abspath(sys.argv[0]))
-        #print("base directory is:" + base_dir_name)
+        ##print("base directory is:" + base_dir_name)
         if(base_dir_name != cwd):
             os.chdir(base_dir_name)
 
@@ -66,15 +66,15 @@ def test(theta,filename,vectorizer):
 
         # #Do training for 2 classes related-unrelated
 
-        print ("going to test on data ")
+        #print ("going to test on data ")
 
 
 
         testing_data= utils.read_data.readSpam(cwd,filename)
-        print("size of entire_corpus is:" + str((testing_data.shape)))
+        #print("size of entire_corpus is:" + str((testing_data.shape)))
         featureVector=vectorizer.transform(testing_data["data"] )
         gold_labels=testing_data["label"]
-        print("size of tokenized corpus is:" + str((featureVector.shape)))
+        #print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
 
@@ -82,12 +82,12 @@ def test(theta,filename,vectorizer):
         #theta=np.random.rand(noOfFeatures,1)
 
         #add a bias value place holder
-        print("shape of featureVector:"+str((featureVector.shape)))
+        #print("shape of featureVector:"+str((featureVector.shape)))
 
         #theta = np.insert(theta,noOfFeatures,0.5,axis=0)
 
-        # print("shape of the numpy array theta after bias:"+str((theta.shape)))
-        # print("bias before all iterations"+str(theta[noOfFeatures][0]))
+        # #print("shape of the numpy array theta after bias:"+str((theta.shape)))
+        # #print("bias before all iterations"+str(theta[noOfFeatures][0]))
         #
         #
         labelCounter=0;
@@ -104,10 +104,10 @@ def test(theta,filename,vectorizer):
 
 
             d=x*theta
-            #print("shape of d:"+str(d.shape))
+            ##print("shape of d:"+str(d.shape))
             sig=calculateSigmoid(d)
             sigint=sig[0][0][0]
-            #print("sigint:"+str(sigint))
+            ##print("sigint:"+str(sigint))
             if(sigint<1):
                 predictedLabel=0
             else:
@@ -127,8 +127,8 @@ def test(theta,filename,vectorizer):
 
     except:
         import traceback
-        print('generic exception: ' + traceback.format_exc())
+        #print('generic exception: ' + traceback.format_exc())
         elapsed_time = time.time() - start_time
-        print("time taken:" + str(elapsed_time))
+        #print("time taken:" + str(elapsed_time))
 
 
