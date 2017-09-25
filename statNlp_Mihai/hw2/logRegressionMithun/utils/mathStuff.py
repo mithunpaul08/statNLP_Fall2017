@@ -8,7 +8,7 @@ import numpy as np
 def calculateSigmoid(x):
     x_array=np.array([-x])
     sig=1/(1+np.exp(x_array))
-    #print("value of sig is "+str(sig))
+    ##print("value of sig is "+str(sig))
     return sig
 
 def calculateAccuracy(goldLabels,PredecitedLabels):
@@ -16,10 +16,10 @@ def calculateAccuracy(goldLabels,PredecitedLabels):
     totalCount=0
     for i, (gold, pred) in enumerate(zip(goldLabels, PredecitedLabels)):
         totalCount=totalCount+1
-        print(gold,pred)
+        #print(gold,pred)
         if gold == pred:
             correctCount=correctCount+1
-    print(correctCount,totalCount)
+    #print(correctCount,totalCount)
     accuracy=(correctCount*100)/totalCount
     return accuracy
 

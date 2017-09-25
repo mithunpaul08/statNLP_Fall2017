@@ -11,7 +11,7 @@ def readSpam(cwd, inputFile):
     #df =pd.read_csv("~/fall2017/statNlp_Mihai/hw2/logRegressionMithun/data/SMSSpamCollection.train" ,sep='\t',header=None,names=['label','data'])
 
     df =pd.read_csv(path  + inputFile,sep='\t',header=None,names=['label','data'])
-    print("done reading spamData")
+    #print("done reading spamData")
 
     return df;
 

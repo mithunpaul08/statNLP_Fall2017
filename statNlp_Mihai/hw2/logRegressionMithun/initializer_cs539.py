@@ -23,33 +23,16 @@ import time
 
 
 
-
-LABELS = ['agree', 'disagree', 'discuss', 'unrelated']
-LABELS_RELATED = ['unrelated','related']
-RELATED = LABELS[0:3]
-
-#acccording to FNC guys, this is the mapping of classes to labels
-#agree:0
-#disagree:1
-#discuss:2
-#unrelated:3
-toaddr="mithunpaul08@gmail.com"
-#toaddr="mithunpaul@email.arizona.edu"
-
 start_time = time.time()
-#writeToOutputFile("start time:"+str(start_time), "logfile")
 
-#or if its just 2 classes
-#unrelated:0
-#related=1
 if __name__ == "__main__":
     try:
 
-        #sys.exit(1)
-        miniBatchSize=3;
-        noOfEpochs=10;
 
-        #nltk.download("wordnet", "whatever_the_absolute_path_to_myapp_is/nltk_data/")
+        #miniBatchSize=3;
+        noOfEpochs=2;
+
+
         print("number of arguments is"+ str(len(sys.argv)))
 
 
@@ -73,9 +56,28 @@ if __name__ == "__main__":
         print ("going to train on data")
 
         trainingData="SMSSpamCollection.train"
-        testFile="SMSSpamCollection.test"
-        trainedWeights,vectorizer=train(trainingData,miniBatchSize,noOfEpochs)
-        pred_labels,gold_labels=test(trainedWeights,testFile,vectorizer)
+        testData="SMSSpamCollection.test"
+        devData="SMSSpamCollection.devel"
+
+
+
+        #to tune on dev data
+
+        #tuning batch size. For each of the batch size. print accuracy alone
+        for miniBatchSize in range(1,2):
+             trainedWeights,vectorizer=train(trainingData,miniBatchSize,noOfEpochs)
+             print("done with training.")
+             print("size of trainedWeights is.:"+trainedWeights.shape)
+             print("size of vectorizer is.:"+len(vectorizer))
+             pred_labels,gold_labels=test(trainedWeights,devData,vectorizer)
+             accuracy=calculateAccuracy(gold_labels,pred_labels)
+             print("miniBatchSize:"+str(miniBatchSize)+"accuracy:"+str((accuracy)))
+
+        sys.exit(1)
+##################################end of dev phase####################
+
+        #to run on testing data
+        #pred_labels,gold_labels=test(trainedWeights,testData,vectorizer)
 
 
         #print(str(pred_labels))

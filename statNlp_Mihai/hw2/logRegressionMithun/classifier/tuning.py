@@ -51,15 +51,15 @@ def train(filename,miniBatchSize,noOfEpochs):
 
         # #Do training for 2 classes related-unrelated
 
-        #print ("going to train on data for related-unrelated splitting aka phase1")
+        print ("going to train on data for related-unrelated splitting aka phase1")
 
 
 
         training_data= utils.read_data.readSpam(cwd,filename)
-        #print("size of entire_corpus is:" + str((training_data.shape)))
+        print("size of entire_corpus is:" + str((training_data.shape)))
         featureVector,vectorizer=tokenize(training_data["data"] )
         labels=training_data["label"]
-        #print("size of tokenized corpus is:" + str((featureVector.shape)))
+        print("size of tokenized corpus is:" + str((featureVector.shape)))
         rowCount=featureVector.shape[0]
         noOfFeatures=featureVector.shape[1]
 
@@ -67,20 +67,20 @@ def train(filename,miniBatchSize,noOfEpochs):
         theta=np.random.rand(noOfFeatures,1)
 
         #add a bias value place holder
-        #print("shape of the numpy array theta before bias:"+str((theta.shape)))
+        print("shape of the numpy array theta before bias:"+str((theta.shape)))
 
         #theta = np.insert(theta,noOfFeatures,0.5,axis=0)
 
-        # #print("shape of the numpy array theta after bias:"+str((theta.shape)))
-        # #print("bias before all iterations"+str(theta[noOfFeatures][0]))
+        # print("shape of the numpy array theta after bias:"+str((theta.shape)))
+        # print("bias before all iterations"+str(theta[noOfFeatures][0]))
         #
         #
         labelCounter=0;
         # biasForX=np.array([[1]])
         # biasForX[0][0]=-1
-        # #print("shape of the biasForX:"+str((biasForX.shape)))
+        # print("shape of the biasForX:"+str((biasForX.shape)))
         # biasForX=np.mat(biasForX)
-        # #print("shape of the biasForX after matrix:"+str((biasForX.shape)))
+        # print("shape of the biasForX after matrix:"+str((biasForX.shape)))
         #for each of the message calculate theta.X
         #print("first row of feature vector :"+str(featureVector[0:1,:]))
 
@@ -93,7 +93,7 @@ def train(filename,miniBatchSize,noOfEpochs):
             np.random.shuffle(index)
             featureVector= featureVector[index, :]
             #print("first row of feature vector :"+str(featureVector[0:1,:]))
-            
+            sys.exit(1)
 
             batchStartIndex=0
             batchendIndex=batchStartIndex+miniBatchSize
@@ -106,19 +106,17 @@ def train(filename,miniBatchSize,noOfEpochs):
             else:
                 noOfBatches=(rowCount/miniBatchSize)
 
-            #print("rowCount:"+str(rowCount))
-            #print("miniBatchSize:"+str(miniBatchSize))
-            #print("noOfBatches:"+str(noOfBatches))
+            print("rowCount:"+str(rowCount))
+            print("miniBatchSize:"+str(miniBatchSize))
+            print("noOfBatches:"+str(noOfBatches))
 
 
 
-            #print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
+            print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
 
-            #print("shape of the featureVector is:"+str(featureVector.shape))
+            print("shape of the featureVector is:"+str(featureVector.shape))
             #run this for all the number of batches
             for batchCount in range (0,int(noOfBatches)):
-
-                print("Epoch Number:"+str(epoch)+" Batch number:"+str(batchCount))
 
                 #print("value of a batchStartIndex is:"+str(batchStartIndex))
                 #print("value of a miniBatchSize is:"+str(miniBatchSize))
@@ -143,11 +141,10 @@ def train(filename,miniBatchSize,noOfEpochs):
 
 
                     #print("This is item number"+str(labelCounter)+" in Batch number:"+str(batchCount))
-
                     #add a fake feature
-                    # #print("shape of the xT array before bias:"+str((x.T.shape)))
+                    # print("shape of the xT array before bias:"+str((x.T.shape)))
                     # #newx=np.stack([x.T,biasForX],axis=0)
-                    # #print("shape of the x array after bias:"+str((newx.shape)))
+                    # print("shape of the x array after bias:"+str((newx.shape)))
 
                     #print("shape of the theta transpose is:"+str(theta.transpose().shape))
                     #print("shape of the x transpose is is:"+str(x.transpose().shape))
@@ -158,10 +155,10 @@ def train(filename,miniBatchSize,noOfEpochs):
                     sig=calculateSigmoid(d)
                     sigint=sig[0][0][0]
                     thisLabel=str(labels[labelCounter])
-                    # #print("shape of labels is:"+str(labels.shape))
-                    # #print("value of labelCounter is:"+str(labelCounter))
-                   # #print("value of thisLabel is:"+thisLabel)
-                   # #print("value of sig is:"+str(sig[0][0][0]))
+                    # print("shape of labels is:"+str(labels.shape))
+                    # print("value of labelCounter is:"+str(labelCounter))
+                   # print("value of thisLabel is:"+thisLabel)
+                   # print("value of sig is:"+str(sig[0][0][0]))
                     #print("sahpe of sig is:"+str(sig[0][0][0].shape))
 
                     labelInt=1;
@@ -175,10 +172,14 @@ def train(filename,miniBatchSize,noOfEpochs):
 
                     #do yi-hi (this is a scalar value)
                     diff=labelInt-sigint
-                   # #print("value of labelInt is:"+str(labelInt))
+                   # print("value of labelInt is:"+str(labelInt))
                     #print("value of diff is:"+str(diff))
 
-
+                    #feature_vector_this= np.array([[]])
+                    #feature_vector_this=feature_vector_this.reshape(-1, 1)
+                    #feature_vector_this=np.asarray(x.transpose()).reshape(-1)
+                    #print(str(feature_vector_this))
+                    #print(str(feature_vector_this.shape))
 
                     fvProduct=(x.T)*diff
 
@@ -206,7 +207,7 @@ def train(filename,miniBatchSize,noOfEpochs):
 
                     #if(labelCounter==1):
 
-                #print("done with batch number:"+str(batchCount))
+                print("done with batch number:"+str(batchCount))
 
                 #print("one batch finished running")
                 #at the end of each batch divdide the delta by the batch size
@@ -224,21 +225,21 @@ def train(filename,miniBatchSize,noOfEpochs):
 
                 #print("shape of thetat is:"+str(theta.shape))
 
-            #print("done with all batches. value of batch count is:"+str(batchCount))
+            print("done with all batches. value of batch count is:"+str(batchCount))
 
 
 
 
-        #print("theta after all iterations"+str(theta[5821][0]))
-        #print("value of labelCounter is:"+str(labelCounter))
+        print("theta after all iterations"+str(theta[5821][0]))
+        print("value of labelCounter is:"+str(labelCounter))
         #print("bias after all iterations"+str(theta[noOfFeatures][0]))
         return theta,vectorizer
 
 
     except:
         import traceback
-        #print('generic exception: ' + traceback.format_exc())
+        print('generic exception: ' + traceback.format_exc())
         elapsed_time = time.time() - start_time
-        #print("time taken:" + str(elapsed_time))
+        print("time taken:" + str(elapsed_time))
 
 

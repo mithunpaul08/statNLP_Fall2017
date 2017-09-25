@@ -40,7 +40,7 @@ def tokenize(document):
 
     vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english')
     X = vectorizer.fit_transform(document)
-    #print("features are:"+str(vectorizer.get_feature_names()))
+    ##print("features are:"+str(vectorizer.get_feature_names()))
     return X,vectorizer
 
 def createAtfidfVectorizer():
