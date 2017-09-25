@@ -12,6 +12,9 @@ from utils.read_data import readSpam
 from utils.process_input_data import tokenize
 from utils.mathStuff import calculateSigmoid
 from classifier.testData import testWithGivenPickle
+from utils.process_input_data import tokenizeWithBigrams
+from utils.process_input_data import tokenizeWithBothUniBigrams
+
 import pickle as pk
 
 
@@ -37,24 +40,6 @@ def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeSt
     maxNoOfEpochsStr="1";
 
 
-
-
-
-
-    # if(len(sys.argv)>2):
-    #     maxMiniBatchSizeStr=sys.argv[1]
-    #     maxNoOfEpochsStr=sys.argv[2]
-    #     print("maxMiniBatchSize:"+ str(maxMiniBatchSizeStr))
-    #     print("maxNoOfEpochs:"+ str(maxNoOfEpochsStr))
-    #
-    # else:
-    #     print("Error: No max epoch and max batch size provided")
-    #     sys.exit(1)
-    #
-    # userinput=input("Is it correct. press y or n:")
-    # if(userinput=="n"):
-    #     sys.exit(1);
-    # else:
 
 
 
@@ -126,7 +111,13 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
 
         training_data= utils.read_data.readSpam(cwd,filename)
         #print("size of entire_corpus is:" + str((training_data.shape)))
-        featureVector,vectorizer=tokenize(training_data["data"] )
+        #featureVector,vectorizer=tokenize(training_data["data"] )
+
+        #featureVector,vectorizer=tokenizeWithBigrams(training_data["data"] )
+        featureVector,vectorizer=tokenizeWithBothUniBigrams(training_data["data"] )
+
+
+
         labels=training_data["label"]
 
         rowCount=featureVector.shape[0]

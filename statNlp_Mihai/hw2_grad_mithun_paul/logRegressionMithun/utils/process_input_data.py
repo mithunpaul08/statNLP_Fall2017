@@ -43,6 +43,22 @@ def tokenize(document):
     ##print("features are:"+str(vectorizer.get_feature_names()))
     return X,vectorizer
 
+def tokenizeWithBigrams(document):
+
+    vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english',ngram_range=(2, 2))
+    X = vectorizer.fit_transform(document)
+    ##print("features are:"+str(vectorizer.get_feature_names()))
+    return X,vectorizer
+
+
+def tokenizeWithBothUniBigrams(document):
+
+    vectorizer = CountVectorizer(tokenizer=normalize, stop_words='english',ngram_range=(1, 2))
+    X = vectorizer.fit_transform(document)
+    ##print("features are:"+str(vectorizer.get_feature_names()))
+    return X,vectorizer
+
+
 def createAtfidfVectorizer():
     vectorizer2 = TfidfVectorizer(tokenizer=normalize, stop_words='english')
     return vectorizer2
