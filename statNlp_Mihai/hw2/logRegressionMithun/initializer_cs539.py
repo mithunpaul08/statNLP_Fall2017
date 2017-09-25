@@ -46,7 +46,7 @@ if __name__ == "__main__":
     try:
 
         #sys.exit(1)
-        miniBatchSize=5;
+        miniBatchSize=3;
         noOfEpochs=10;
 
         #nltk.download("wordnet", "whatever_the_absolute_path_to_myapp_is/nltk_data/")

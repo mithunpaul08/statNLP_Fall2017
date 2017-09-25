@@ -6,7 +6,7 @@ import utils;
 import csv;
 import collections
 import numpy as np
-
+import math
 import itertools
 from utils.read_data import readSpam
 from utils.process_input_data import tokenize
@@ -109,8 +109,19 @@ def train(filename,miniBatchSize):
         batchStartIndex=0
         batchendIndex=batchStartIndex+miniBatchSize
 
-        noOfBatches=rowCount/miniBatchSize
+        #if the number of data points is not a multiple of the batchsize, ignore the last batch.
+        #i.e run for only one batch less
+        noOfBatches=0
+        if((rowCount%miniBatchSize)>0):
+            noOfBatches=math.floor(rowCount/miniBatchSize)
+        else:
+            noOfBatches=(rowCount/miniBatchSize)
+
+        print("rowCount:"+str(rowCount))
+        print("miniBatchSize:"+str(miniBatchSize))
         print("noOfBatches:"+str(noOfBatches))
+
+        sys.exit(1)
 
         print("value of a random eleement in theta before one batch started"+str(theta[5821][0]))
 
@@ -140,7 +151,7 @@ def train(filename,miniBatchSize):
             for x in minibatch:
 
 
-                print("This is item number"+str(labelCounter)+" in Batch number:"+str(batchCount))
+                #print("This is item number"+str(labelCounter)+" in Batch number:"+str(batchCount))
                 #add a fake feature
                 # print("shape of the xT array before bias:"+str((x.T.shape)))
                 # #newx=np.stack([x.T,biasForX],axis=0)
@@ -226,7 +237,7 @@ def train(filename,miniBatchSize):
             #print("shape of thetat is:"+str(theta.shape))
 
         print("done with all batches. value of batch count is:"+str(batchCount))
-        sys.exit(1)
+
 
 
 
