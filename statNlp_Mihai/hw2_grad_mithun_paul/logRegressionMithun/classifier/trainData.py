@@ -165,7 +165,7 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         #vectored_sites = cv.fit_transform([' '.join([f for f in generator_features(site)]) for site in sites])
 
         #top10(vectorizer,featureVector,class_labels)
-        sys.exit(1)
+
 
         # word_freq_df = pd.DataFrame({'term': vectorizer.get_feature_names(),
         #                              'occurrences':np.asarray(featureVector.sum(axis=0)).ravel().tolist()})
@@ -490,6 +490,8 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         ###print("theta after all epochs"+str(theta[5821][0]))
         ##print("value of labelCounter is:"+str(labelCounter))
         ###print("bias after all iterations"+str(theta[noOfFeatures][0]))
+        # print(theta)
+        # sys.exit(1)
         return theta,vectorizer
 
 
