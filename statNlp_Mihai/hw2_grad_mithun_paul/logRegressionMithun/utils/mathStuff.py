@@ -4,6 +4,7 @@ import sys
 import csv
 import pandas as pd
 import numpy as np
+import math
 
 def calculateSigmoid(x):
     x_array=np.array([-x])
