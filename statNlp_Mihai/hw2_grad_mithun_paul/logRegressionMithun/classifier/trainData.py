@@ -32,6 +32,26 @@ do_testing_phase1=True;
 do_testing_phase2=True;
 
 
+def getTopWeightedFeatures(theta,vectorizer ):
+    featureVectorNames= vectorizer.get_feature_names()
+    fv_array=np.array(featureVectorNames)
+    print("shape of feature vector:" + str(fv_array.shape))
+    print("shape of theta vector:" + str(theta.shape))
+
+    #combine these two arrays using hstack
+    #combinedfv=np.hstack
+    combined_theta_fv = np.vstack((fv_array, theta))
+    #print((combined_theta_fv.T))
+    #test=combined_theta_fv[combined_theta_fv[:, 1].argsort()]
+    #print(str(combined_theta_fv[0]))
+    print("second value is:"+combined_theta_fv.T[0][1])
+    print(combined_theta_fv.T[0][1].dtype)
+    test = sorted(combined_theta_fv.T, key=lambda a_entry: a_entry[1])
+    #print(test)
+    #sys.exit(1)
+
+
+
 def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeStr):
     maxMiniBatchSize=int(maxMiniBatchSizeStr)
     maxNoOfEpochs=int(maxNoOfEpochsStr)
@@ -490,8 +510,10 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         ###print("theta after all epochs"+str(theta[5821][0]))
         ##print("value of labelCounter is:"+str(labelCounter))
         ###print("bias after all iterations"+str(theta[noOfFeatures][0]))
-        # print(theta)
-        # sys.exit(1)
+        getTopWeightedFeatures(theta,vectorizer)
+
+
+
         return theta,vectorizer
 
 
@@ -500,5 +522,7 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         print('generic exception: ' + traceback.format_exc())
         elapsed_time = time.time() - start_time
         ##print("time taken:" + str(elapsed_time))
+
+
 
 
