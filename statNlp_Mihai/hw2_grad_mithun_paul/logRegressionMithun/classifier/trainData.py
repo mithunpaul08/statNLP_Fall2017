@@ -81,14 +81,16 @@ def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeSt
 
     ##print("done with training and Testing . Going to main menu")
 
-# def #print_top10(vectorizer, clf, class_labels):
-#
-#     """##prints features with the highest coefficient values, per class"""
-#     feature_names = vectorizer.get_feature_names()
-#     for i, class_label in enumerate(class_labels):
-#         top10 = np.argsort(clf.coef_[0])[-10:]
-#         #print("%s: %s" % (class_label,
-#               " ".join(feature_names[j] for j in top10)))
+def top10(vectorizer, clf, class_labels):
+
+    """##prints features with the highest coefficient values, per class"""
+    feature_names = vectorizer.get_feature_names()
+    for i, class_label in enumerate(class_labels):
+        top10 = np.argsort(clf.coef_[0])[-10:]
+        print("%s: %s" % (class_label,
+              " ".join(feature_names[j] for j in top10)))
+
+#def getTop20FromVocab():
 
 def train(filename,miniBatchSize,maxNoOfEpochs):
 
@@ -139,8 +141,8 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         ##print("size of entire_corpus is:" + str((training_data.shape)))
         #featureVector,vectorizer=tokenize(training_data["data"] )
 
-        featureVector,vectorizer=tokenizeWithBigrams(training_data["data"] )
-        #featureVector,vectorizer=tokenize(training_data["data"] )
+        #featureVector,vectorizer=tokenizeWithBigrams(training_data["data"] )
+        featureVector,vectorizer=tokenizeWithBothUniBigrams(training_data["data"] )
         #print("shape of featureVector is:" + str((featureVector.shape)))
         #print("type of featureVector is:" + str(type(featureVector)))
 
@@ -152,7 +154,18 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         # sys.exit(1)
         #
         # class_labels=["spam","ham"]
-        # ##print_top10(vectorizer,featureVector,class_labels)
+        # myvocab=vectorizer.vocabulary_
+        # getTop20FromVocab()
+        # print()
+
+        #from each key value pair in the dictionary, pick the top 20 most frequent ones
+
+        #print(vectorizer.get_feature_names())
+        #print(featureVector[0])
+        #vectored_sites = cv.fit_transform([' '.join([f for f in generator_features(site)]) for site in sites])
+
+        #top10(vectorizer,featureVector,class_labels)
+        sys.exit(1)
 
         # word_freq_df = pd.DataFrame({'term': vectorizer.get_feature_names(),
         #                              'occurrences':np.asarray(featureVector.sum(axis=0)).ravel().tolist()})
