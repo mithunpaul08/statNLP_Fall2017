@@ -139,8 +139,8 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
         ##print("size of entire_corpus is:" + str((training_data.shape)))
         #featureVector,vectorizer=tokenize(training_data["data"] )
 
-        #featureVector,vectorizer=tokenizeWithBigrams(training_data["data"] )
-        featureVector,vectorizer=tokenize(training_data["data"] )
+        featureVector,vectorizer=tokenizeWithBigrams(training_data["data"] )
+        #featureVector,vectorizer=tokenize(training_data["data"] )
         #print("shape of featureVector is:" + str((featureVector.shape)))
         #print("type of featureVector is:" + str(type(featureVector)))
 

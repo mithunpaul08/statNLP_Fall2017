@@ -41,6 +41,10 @@ if __name__ == "__main__":
 
 
 
+
+
+
+
         while True:
             print("                      ")
             print("          ******            ")
@@ -48,6 +52,7 @@ if __name__ == "__main__":
             print("Welcome to Spam Classifier. Please pick one of the following:")
             print("To test using an already trained classifier, Press:1")
             print("To train a model and test with it, Press:2")
+            print("To tune a model and test on dev data , Press:3")
             print("To exit Press:0")
 
 
@@ -65,6 +70,13 @@ if __name__ == "__main__":
                         maxMiniBatchSizeStr=input("Enter a maximum minibatch size value:")
                         if(maxMiniBatchSizeStr!="" and maxNoOfEpochsStr!=""):
                             trainWithPickle(testData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeStr)
+                    else:
+
+                        if (myInput == "3"):
+                            maxNoOfEpochsStr = input("Enter a max epoch value:")
+                            maxMiniBatchSizeStr = input("Enter a maximum minibatch size value:")
+                            if (maxMiniBatchSizeStr != "" and maxNoOfEpochsStr != ""):
+                                trainWithPickle(devData, trainingData, maxNoOfEpochsStr, maxMiniBatchSizeStr)
 
 
 
