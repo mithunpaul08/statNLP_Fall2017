@@ -11,6 +11,7 @@ def calculateSigmoid(x):
     sig=1/(1+np.exp(x_array))
     #sig=1/(1+np.exp(x))
     #print("value of sig is "+str(sig))
+
     return sig
 
 def calculateAccuracy(goldLabels,PredecitedLabels):

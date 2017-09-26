@@ -72,7 +72,7 @@ def trainWithPickle(testingData,trainingData,maxNoOfEpochsStr,maxMiniBatchSizeSt
         fileObject_vectorizer = open(file2,'wb')
         pk.dump(vectorizer, fileObject_vectorizer)
         fileObject_vectorizer.close()
-        print("done training. Stored pickles as:"+file2+":and:"+file1+". Going to test with them")
+        #print("done training. Stored pickles as:"+file2+":and:"+file1+". Going to test with them")
         accuracy=testWithGivenPickle(testingData,file1,file2)
         print("miniBatchSize:"+str(miniBatchSize)+","+"accuracy:"+str(accuracy))
 
@@ -210,30 +210,36 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
 
 
             #to shuffle a sparse matrix
-            labels_new=np.array([labels])
+
             #print("shape of labels:"+str((labels.shape)))
             #print("shape of featureVector:"+str((featureVector.shape)))
-            colCount=featureVector.shape[1]
-
-            combined=np.hstack((labels_new.T,featureVector))
+            #colCount=featureVector.shape[1]
 
 
+            #all shuffling related stuff
+            # labels_new = np.array([labels])
+            #combined=np.hstack((labels_new.T,featureVector))
+            # combine both feature vectors and labels again
+            # index = np.arange(np.shape(combined)[0])
+            # np.random.shuffle(index)
+            # combined= combined[index, :]
+            # labels_new = combined[:,0:1]
+            # featureVector_new=combined[:,1:]
 
-            #combine both feature vectors and labels again
-            index = np.arange(np.shape(combined)[0])
-            np.random.shuffle(index)
-            combined= combined[index, :]
+
+
+
 
             #print("shape of combined:"+str((combined.shape)))
             #print(" combined[1]:"+str((combined[:,1:])))
 
             
-            labels_new = combined[:,0:1]
+
             #print("shape of labels:"+str((labels.shape)))
            # #print(" labels:"+str((labels)))
             #print(" colCount:"+str((colCount)))
 
-            featureVector_new=combined[:,1:]
+
             #print("new featureVector :"+str(featureVector))
             # #print("shape of labels:"+str((labels.shape)))
             # #print("shape of featureVector:"+str((featureVector.shape)))
@@ -275,7 +281,8 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
                 #print("value of a batchendIndex is:"+str(batchendIndex))
                 #print("value of a batchStartIndex is:"+str(batchStartIndex))
                 #print("value of a miniBatchSize is:"+str(miniBatchSize))
-                minibatch=featureVector_new[batchStartIndex:batchendIndex,:]
+                #minibatch=featureVector_new[batchStartIndex:batchendIndex,:]
+                minibatch = featureVector[batchStartIndex:batchendIndex, :]
                 ##print("shape of the minibatch is:"+str(minibatch.shape))
 
 
@@ -323,7 +330,7 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
                     ###print("value of dint is:"+str(dint))
                     sig=calculateSigmoid(dint)
                     sigint=sig[0]
-                    thisLabel=str(labels_new[labelCounter])
+                    thisLabel=str(labels[labelCounter])
                     #thisLabel=str(labels[2])
                     #print("shape of labels is:"+str(labels.shape))
                     ###print("value of labelCounter is:"+str(labelCounter))
@@ -475,7 +482,7 @@ def train(filename,miniBatchSize,maxNoOfEpochs):
 
     except:
         import traceback
-        #print('generic exception: ' + traceback.format_exc())
+        print('generic exception: ' + traceback.format_exc())
         elapsed_time = time.time() - start_time
         ##print("time taken:" + str(elapsed_time))
 

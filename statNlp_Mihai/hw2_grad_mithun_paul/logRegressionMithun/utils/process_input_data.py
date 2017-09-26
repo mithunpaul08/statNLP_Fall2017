@@ -8,7 +8,7 @@ from csv import DictReader
 from sklearn.feature_extraction.text import TfidfTransformer
 
 
-#nltk.download('punkt')
+nltk.download('punkt')
 #nltk.download('wordnet')
 
 

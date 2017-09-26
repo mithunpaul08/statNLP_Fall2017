@@ -32,6 +32,8 @@ start_time = time.time()
 
 if __name__ == "__main__":
     try:
+
+
         trainingData="SMSSpamCollection.train"
         testData="SMSSpamCollection.test"
         devData="SMSSpamCollection.devel"
