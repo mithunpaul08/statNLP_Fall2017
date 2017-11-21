@@ -35,8 +35,8 @@ do_testing_phase2=True;
 def getTopWeightedFeatures(theta,vectorizer ):
     featureVectorNames= vectorizer.get_feature_names()
     fv_array=np.array(featureVectorNames)
-    print("shape of feature vector:" + str(fv_array.shape))
-    print("shape of theta vector:" + str(theta.shape))
+    #print("shape of feature vector:" + str(fv_array.shape))
+    #print("shape of theta vector:" + str(theta.shape))
 
     #combine these two arrays using hstack
     #combinedfv=np.hstack
@@ -44,8 +44,8 @@ def getTopWeightedFeatures(theta,vectorizer ):
     #print((combined_theta_fv.T))
     #test=combined_theta_fv[combined_theta_fv[:, 1].argsort()]
     #print(str(combined_theta_fv[0]))
-    print("second value is:"+combined_theta_fv.T[0][1])
-    print(combined_theta_fv.T[0][1].dtype)
+    #print("second value is:"+combined_theta_fv.T[0][1])
+    #print(combined_theta_fv.T[0][1].dtype)
     test = sorted(combined_theta_fv.T, key=lambda a_entry: a_entry[1])
     #print(test)
     #sys.exit(1)

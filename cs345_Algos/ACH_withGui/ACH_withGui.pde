@@ -140,6 +140,7 @@ void keyPressed() {
   //errorText = key+"key pressed";
   errorText = "";
   if ((key == 'R')||(key == 'r')) {
+    errorText = "restarted";
     restart();
   } else if (keyCode == BACKSPACE) {
     if (userText.length() > 0) {

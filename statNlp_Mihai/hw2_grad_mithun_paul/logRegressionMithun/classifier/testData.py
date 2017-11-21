@@ -46,7 +46,7 @@ def testWithAlreadyTrainedPickle(filename):
 
     pred_labels,gold_labels=test(trainedWeights_from_pkl,filename,vectorizer_from_pkl)
     accuracy=calculateAccuracy(gold_labels,pred_labels)
-    #print("accuracy:"+str((accuracy)))
+    print("accuracy:"+str((accuracy)))
 
 
 
