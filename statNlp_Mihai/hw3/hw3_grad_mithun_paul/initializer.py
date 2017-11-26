@@ -1,6 +1,6 @@
 from utils.readData import readPOS
 from utils.lstm import startLstm
-from utils.lstm import prepare_training_data
+#from utils.lstm import prepare_training_data
 import os
 
 import time
@@ -14,7 +14,7 @@ testingData="test.tagged"
 cwd = os.getcwd()
 posTrain=readPOS(cwd,trainingData)
 
-prepare_training_data(posTrain)
+#prepare_training_data(posTrain)
 
 #startLstm(posTrain)
 print("--- %s seconds ---" % (time.time() - start_time))

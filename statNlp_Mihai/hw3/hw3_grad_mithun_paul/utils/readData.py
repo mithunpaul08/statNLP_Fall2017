@@ -31,6 +31,6 @@ def readPOS(cwd, inputFile):
             tags.append(row[1])
 
 
-    print(size(training_data))
+    print(str(len(training_data)))
     return training_data
 

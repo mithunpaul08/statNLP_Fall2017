@@ -40,37 +40,21 @@ def getIndex(w, to_ix):
 
 #an array of sentences
 sentence_collection=[]
-def prepare_training_data(posTrain):
-    pattern = re.compile("\n\n")
-    each_sentence=[];
-#go through each of the words in the training data and stop when you see space.
-    #for word in tqdm(posTrain["words"],total=len(posTrain)):
-    for word in posTrain["words"]:
-        if word in ['\n', '\r\n']:
-        #if (word==" "):
-            print("found the space its value is:+"+word)
-            #whenever you see a space, add that sentence to list of sentences and start fresh
-            sentence_collection.append(each_sentence)
-            print(each_sentence)
-            sys.exit(1)
-            each_sentence=[]
-        else:
-            each_sentence.append(word)
-    print(sentence_collection)
-
-    # #assign a unique id to each of the words
-    # for word in posTrain["words"]:
-    #         if word not in wordsAndIndices:
-    #             wordsAndIndices[word] = len(wordsAndIndices)
-    #
-    #
-    #
-    # #assign a unique id to each of the words
-    # for tag in posTrain["tags"]:
-    #         if tag not in tagsAndIndices:
-    #             tagsAndIndices[tag] = len(tagsAndIndices)
-    #
-    # print(tagsAndIndices)
+# def prepare_training_data(posTrain):
+#
+#     #assign a unique id to each of the words
+#     for word in posTrain["words"]:
+#             if word not in wordsAndIndices:
+#                 wordsAndIndices[word] = len(wordsAndIndices)
+#
+#
+#
+#     #assign a unique id to each of the words
+#     for tag in posTrain["tags"]:
+#             if tag not in tagsAndIndices:
+#                 tagsAndIndices[tag] = len(tagsAndIndices)
+#
+#     print(tagsAndIndices)
 
 
 EMBEDDING_DIM = 6
