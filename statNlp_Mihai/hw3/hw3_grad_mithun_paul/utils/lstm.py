@@ -23,12 +23,18 @@ def prepare_training_data(posTrain):
             if word not in word_to_ix:
                 word_to_ix[word] = len(word_to_ix)
 
-    print(word_to_ix)
-    sys.exit(1)
+
+
     #create a similar hash table for all the pos tags and give it an index
+    tag_to_ix = {}
 
+    #assign a unique id to each of the words
+    for tag in posTrain["tags"]:
+            if tag not in tag_to_ix:
+                tag_to_ix[tag] = len(tag_to_ix)
 
-    tag_to_ix = {"DET": 0, "NN": 1, "V": 2}
+    print(tag_to_ix)
+    sys.exit(1)
 
     EMBEDDING_DIM = 6
     HIDDEN_DIM = 6

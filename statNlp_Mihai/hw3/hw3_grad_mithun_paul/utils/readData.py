@@ -8,7 +8,7 @@ def readSpam(cwd, inputFile):
 
     path = cwd+"/data/"
 
-    df =pd.read_csv(path  + inputFile,sep='\s',header=None,names=['words','taga'],engine='python')
+    df =pd.read_csv(path  + inputFile,sep='\s',header=None,names=['words','tags'],engine='python')
     #print("done reading spamData")
 
     return df;
