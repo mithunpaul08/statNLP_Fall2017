@@ -4,6 +4,7 @@ import torch.autograd as autograd
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from tqdm import tqdm
 
 torch.manual_seed(1)
 
@@ -98,7 +99,7 @@ def startLstm(posTrain):
     #the actual training part
     #for epoch in range(300):
      #for sentence, tags in training_data:
-    for index, row in posTrain.iterrows():
+    for index, row in tqdm(posTrain.iterrows()):
 
         #for word, tag in posTrain.items():
         model.zero_grad()
