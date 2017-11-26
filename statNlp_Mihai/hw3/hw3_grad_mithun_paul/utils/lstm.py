@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from tqdm import tqdm
-
+import re
 torch.manual_seed(1)
 
 #create a dictionary (which will be filled later, to store the unique words and its indexes)
@@ -14,6 +14,14 @@ wordsAndIndices = {}
 
 #create a similar hash table for all the pos tags and give it an index
 tagsAndIndices = {}
+
+
+def prepare_sequence(seq, to_ix):
+    idxs = [to_ix[w] for w in seq]
+    tensor = torch.LongTensor(idxs)
+    return autograd.Variable(tensor)
+
+
 
 def getIndex(w, to_ix):
     #idxs=[0, 1, 2, 3, 4]
@@ -30,22 +38,39 @@ def getIndex(w, to_ix):
 #     tensor = torch.LongTensor(idxs)
 #     return autograd.Variable(tensor)
 
-
+#an array of sentences
+sentence_collection=[]
 def prepare_training_data(posTrain):
-
-    #assign a unique id to each of the words
+    pattern = re.compile("\n\n")
+    each_sentence=[];
+#go through each of the words in the training data and stop when you see space.
+    #for word in tqdm(posTrain["words"],total=len(posTrain)):
     for word in posTrain["words"]:
-            if word not in wordsAndIndices:
-                wordsAndIndices[word] = len(wordsAndIndices)
+        if word in ['\n', '\r\n']:
+        #if (word==" "):
+            print("found the space its value is:+"+word)
+            #whenever you see a space, add that sentence to list of sentences and start fresh
+            sentence_collection.append(each_sentence)
+            print(each_sentence)
+            sys.exit(1)
+            each_sentence=[]
+        else:
+            each_sentence.append(word)
+    print(sentence_collection)
 
-
-
-    #assign a unique id to each of the words
-    for tag in posTrain["tags"]:
-            if tag not in tagsAndIndices:
-                tagsAndIndices[tag] = len(tagsAndIndices)
-
-    print(tagsAndIndices)
+    # #assign a unique id to each of the words
+    # for word in posTrain["words"]:
+    #         if word not in wordsAndIndices:
+    #             wordsAndIndices[word] = len(wordsAndIndices)
+    #
+    #
+    #
+    # #assign a unique id to each of the words
+    # for tag in posTrain["tags"]:
+    #         if tag not in tagsAndIndices:
+    #             tagsAndIndices[tag] = len(tagsAndIndices)
+    #
+    # print(tagsAndIndices)
 
 
 EMBEDDING_DIM = 6

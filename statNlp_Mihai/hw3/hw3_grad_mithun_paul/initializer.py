@@ -1,5 +1,6 @@
-from utils.readData import readSpam
+from utils.readData import readPOS
 from utils.lstm import startLstm
+from utils.lstm import prepare_training_data
 import os
 
 import time
@@ -11,6 +12,9 @@ devData="dev.tagged"
 testingData="test.tagged"
 
 cwd = os.getcwd()
-posTrain=readSpam(cwd,trainingData)
-startLstm(posTrain)
+posTrain=readPOS(cwd,trainingData)
+
+prepare_training_data(posTrain)
+
+#startLstm(posTrain)
 print("--- %s seconds ---" % (time.time() - start_time))
