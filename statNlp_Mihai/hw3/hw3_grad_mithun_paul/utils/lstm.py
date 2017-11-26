@@ -131,8 +131,13 @@ def startLstm(posTrain):
     #dev part
     inputs = getIndex("every",wordsAndIndices)
     tag_scores = model(inputs)
-    print("weights after training:")
-    print(tag_scores)
+    #print("weights after training:")
+    #print(tag_scores)
+    values, indices = tag_scores.max(0)
+    print("values:")
+    print(values)
+    print("indices:")
+    print(indices)
 
     # #testing part
     # inputs = getIndex(testing_data[0], wordsAndIndices)
