@@ -30,7 +30,7 @@ def readPOS(cwd, inputFile):
             words.append(row[0])
             tags.append(row[1])
 
-        if(rowcounter==50):
-            print(training_data)
-            sys.exit(1)
+
+    print(size(training_data))
+    return training_data
 
