@@ -23,7 +23,7 @@ def read_without_space(cwd, inputFile):
 
 
 def read_with_space(cwd, inputFile):
-    training_data=[]
+    all_sentences=[]
     tags=["START"]
     rowcounter=0;
     path = cwd+"/data/"
@@ -34,9 +34,11 @@ def read_with_space(cwd, inputFile):
             #attach end
             tags.append("END")
             print(tags)
-            sys.exit(1)
+            all_sentences.append(tags)
             #send tags to calculate bigrams
             #attach to a bigram list
             tags=["START"]
         else:
             tags.append(row[1])
+    return all_sentences
+

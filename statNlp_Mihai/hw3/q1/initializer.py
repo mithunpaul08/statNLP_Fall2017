@@ -1,5 +1,6 @@
 from utils.readData import read_without_space
 from utils.readData import read_with_space
+from utils.calculations import calculate_bigrams
 
 import sys
 import os
@@ -18,6 +19,7 @@ posTrain=read_without_space(cwd,trainingData)
 #     print(word)
 
 tagsPerSentence=read_with_space(cwd,trainingData)
+calculate_bigrams(tagsPerSentence)
 
 tagCounter={}
 for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"])):
