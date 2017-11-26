@@ -7,34 +7,45 @@ import torch.optim as optim
 
 torch.manual_seed(1)
 
-def prepare_sequence(seq, to_ix):
-    idxs = [to_ix[w] for w in seq]
+#create a dictionary (which will be filled later, to store the unique words and its indexes)
+wordsAndIndices = {}
+
+
+#create a similar hash table for all the pos tags and give it an index
+tagsAndIndices = {}
+
+def getIndex(w, to_ix):
+    #idxs=[0, 1, 2, 3, 4]
+    #print(w)
+    idxs = [to_ix[w]]
+    #print(idxs)
+    #print("just printed indices")
     tensor = torch.LongTensor(idxs)
     return autograd.Variable(tensor)
+
+# def prepare_sequence():
+#     idxs=[0, 1, 2, 3, 4]
+#     #idxs = [to_ix[w] for w in seq]
+#     tensor = torch.LongTensor(idxs)
+#     return autograd.Variable(tensor)
 
 
 def prepare_training_data(posTrain):
 
-    #create a dictionary (which will be filled later, to store the unique words and its indexes)
-    word_to_ix = {}
-
     #assign a unique id to each of the words
     for word in posTrain["words"]:
-            if word not in word_to_ix:
-                word_to_ix[word] = len(word_to_ix)
+            if word not in wordsAndIndices:
+                wordsAndIndices[word] = len(wordsAndIndices)
 
 
-
-    #create a similar hash table for all the pos tags and give it an index
-    tag_to_ix = {}
 
     #assign a unique id to each of the words
     for tag in posTrain["tags"]:
-            if tag not in tag_to_ix:
-                tag_to_ix[tag] = len(tag_to_ix)
+            if tag not in tagsAndIndices:
+                tagsAndIndices[tag] = len(tagsAndIndices)
 
-    print(tag_to_ix)
-    sys.exit(1)
+    print(tagsAndIndices)
+
 
 EMBEDDING_DIM = 6
 HIDDEN_DIM = 6
@@ -47,6 +58,8 @@ class LSTMTagger(nn.Module):
         self.hidden_dim = hidden_dim
 
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        print("size of word embeddings now is:")
+        print((self.word_embeddings))
 
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)
 
@@ -66,40 +79,64 @@ class LSTMTagger(nn.Module):
         return tag_scores
 
 
-def startLstm():
+def startLstm(posTrain):
 
-    model = LSTMTagger(EMBEDDING_DIM, HIDDEN_DIM, len(word_to_ix), len(tag_to_ix))
+    training_data=prepare_training_data(posTrain)
+    model = LSTMTagger(EMBEDDING_DIM, HIDDEN_DIM, len(wordsAndIndices), len(tagsAndIndices))
     loss_function = nn.NLLLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-    training_data=prepare_training_data()
-    inputs = prepare_sequence(training_data[0][0], word_to_ix)
+    #temporarily check the weight scores that the model has learned. just to compare with later
+    inputs = getIndex("every",wordsAndIndices)
     tag_scores = model(inputs)
-    print("weights before training:")
-    print(tag_scores)
+    #print("weights before training:")
+    #print(tag_scores)
+    #sys.exit(1)
 
+    counter=0
 
     #the actual training part
-    for epoch in range(300):
-        for sentence, tags in training_data:
-            model.zero_grad()
+    #for epoch in range(300):
+     #for sentence, tags in training_data:
+    for index, row in posTrain.iterrows():
 
-            model.hidden = model.init_hidden()
+        #for word, tag in posTrain.items():
+        model.zero_grad()
+        model.hidden = model.init_hidden()
+        word=row["words"]
+        tag=row["tags"]
+        #print("value of word is:"+word)
+        #print("size of wordsAndIndices is:"+str(len(wordsAndIndices)))
 
-            sentence_in = prepare_sequence(sentence, word_to_ix)
-            targets = prepare_sequence(tags, tag_to_ix)
-            tag_scores = model(sentence_in)
+        sentence_in = getIndex(word, wordsAndIndices)
+        #print("value of sentence_in is:")
+        #print(sentence_in.data)
 
-            loss = loss_function(tag_scores, targets)
-            loss.backward()
-            optimizer.step()
+        #print("value of tag is:"+tag)
+        #print("size of tagsAndIndices is:"+str(len(tagsAndIndices)))
+
+
+        targets = getIndex(tag, tagsAndIndices)
+        #print("value of targets is:")
+        #print(targets.data)
+
+
+        tag_scores = model(sentence_in)
+
+        loss = loss_function(tag_scores, targets)
+        loss.backward()
+        optimizer.step()
 
     #dev part
-
-    # #testing part
-    inputs = prepare_sequence(testing_data[0], word_to_ix)
+    inputs = getIndex("every",wordsAndIndices)
     tag_scores = model(inputs)
     print("weights after training:")
-
     print(tag_scores)
+
+    # #testing part
+    # inputs = getIndex(testing_data[0], wordsAndIndices)
+    # tag_scores = model(inputs)
+    # print("weights after training:")
+    #
+    # print(tag_scores)
 

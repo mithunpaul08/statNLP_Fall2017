@@ -8,4 +8,4 @@ testingData="test.tagged"
 
 cwd = os.getcwd()
 posTrain=readSpam(cwd,trainingData)
-startLstm()
+startLstm(posTrain)
