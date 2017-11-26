@@ -99,7 +99,7 @@ def startLstm(posTrain):
     #the actual training part
     #for epoch in range(300):
      #for sentence, tags in training_data:
-    for index, row in tqdm(posTrain.iterrows()):
+    for index, row in tqdm(posTrain.iterrows(),total=len(posTrain)):
 
         #for word, tag in posTrain.items():
         model.zero_grad()
