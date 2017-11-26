@@ -20,3 +20,23 @@ def read_without_space(cwd, inputFile):
     return df;
 
 
+
+
+def read_with_space(cwd, inputFile):
+    training_data=[]
+    tags=["START"]
+    rowcounter=0;
+    path = cwd+"/data/"
+    spamReader = csv.reader(open(path+inputFile, newline=''), delimiter='\t', quotechar='|')
+    for row in spamReader:
+        rowcounter=rowcounter+1
+        if(row==[]):
+            #attach end
+            tags.append("END")
+            print(tags)
+            sys.exit(1)
+            #send tags to calculate bigrams
+            #attach to a bigram list
+            tags=["START"]
+        else:
+            tags.append(row[1])
