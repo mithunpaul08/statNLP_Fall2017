@@ -23,7 +23,25 @@ for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"])):
     else:
         tagCounter[tag] = 1
 
+#to find the number of times each word occurs with its corresponding tag
+
+
 wordTagCounter={}
+
+for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"])):
+    word=row[0]
+    tag=row[1]
+    #combine and store it to a hashtable
+    combined=word+tag
+    if combined in wordTagCounter:
+        wordTagCounter[combined] += 1
+    else:
+        wordTagCounter[combined] = 1
+
+
+print(wordTagCounter["committeeNN"])
+
+
 
 
 #prepare_training_data(posTrain)
