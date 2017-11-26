@@ -1,5 +1,5 @@
 from utils.readData import readSpam
-from utils.lstm import prepare_training_data
+from utils.lstm import startLstm
 import os
 
 trainingData="train.tagged"
@@ -8,4 +8,4 @@ testingData="test.tagged"
 
 cwd = os.getcwd()
 posTrain=readSpam(cwd,trainingData)
-prepare_training_data(posTrain)
+startLstm()
