@@ -139,6 +139,10 @@ def startLstm(posTrain):
     print("indices:")
     print(indices)
 
+    predicted_tag=tagsAndIndices[indices]
+    print("predicted_tag:")
+    print(predicted_tag)
+
     # #testing part
     # inputs = getIndex(testing_data[0], wordsAndIndices)
     # tag_scores = model(inputs)
