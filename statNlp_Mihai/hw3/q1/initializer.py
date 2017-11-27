@@ -303,7 +303,7 @@ def testWithPickle(useSmoothing):
     fileObject_trainedWeights = open('bigramTagCounter_golden.pkl','rb')
     bigramTagCounter=pk.load(fileObject_trainedWeights)
 
-   
+
 
     scoresPerWord=[]
 

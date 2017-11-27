@@ -12,9 +12,10 @@ devData="dev.tagged"
 testingData="test.tagged"
 
 cwd = os.getcwd()
-posTrain=readPOS(cwd,trainingData)
+training_data=readPOS(cwd,trainingData)
 
+#print(training_data[0])
 #prepare_training_data(posTrain)
 
-#startLstm(posTrain)
+startLstm(training_data)
 print("--- %s seconds ---" % (time.time() - start_time))
