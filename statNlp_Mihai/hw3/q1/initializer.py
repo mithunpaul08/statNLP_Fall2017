@@ -60,58 +60,66 @@ scoresPerWord=[]
 highestScoreSoFar=0;
 predicted_tag=""
 
-for thisTag, freq in tagCounter.items():
-    word_tag="the"+"_"+thisTag
 
-    wordTagCount=0
-    #for each of the tags, find the number of times this word occurs with that tag
-    if word_tag in wordTagCounter:
-        wordTagCount=wordTagCounter[word_tag]
+#take input as a collection of sentences and return the predicted tags
 
+dummy=["Pierre","Vinken","61","years","old",",","will"]
+for eachWord in dummy:
+    listOfPredTags=[]
 
-    #for each of this tag, find the count of the tag and teh previous tag
-    tatTagcounter=0
-    tag_tag_combined="START"+"_"+thisTag
-    if tag_tag_combined in bigramTagCounter:
-        tatTagcounter=bigramTagCounter[tag_tag_combined]
+    #for each of the tag in the entire tag collection
+    for thisTag, freq in tagCounter.items():
+        word_tag=eachWord+"_"+thisTag
 
-
-
-    #
-    # if tag_tag_combined in bigramTagCounter:
-    #     #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
-    # else:
-    #     #print(tag_tag_combined+":"+str(0))
-
-    # find emission prob:p(wi/ti)=count(ti,wi)/count(ti)
-    #find the total number of times this tag occurs in the corpus=freq
-    #i.e wordTagCount/freq
-
-    # print("wordTagCount:"+str(wordTagCount))
-    # print("freq:"+str(freq))
-    emission_prob=wordTagCount/freq
-    # if(emission_prob>0):
-    #     print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
-
-    # print("tatTagcounter:"+str(tatTagcounter))
-
-    transition_prob=tatTagcounter/freq
-    # print("transition_prob  word,tag:"+tag_tag_combined+"="+str(transition_prob))
+        wordTagCount=0
+        #for each of the tags, find the number of times this word occurs with that tag
+        if word_tag in wordTagCounter:
+            wordTagCount=wordTagCounter[word_tag]
 
 
-    #multiply both if
-    score=emission_prob*transition_prob
-    if(score>highestScoreSoFar):
-        highestScoreSoFar=score;
-        predicted_tag=thisTag
+        #for each of this tag, find the count of the tag and teh previous tag
+        tatTagcounter=0
+        tag_tag_combined="START"+"_"+thisTag
+        if tag_tag_combined in bigramTagCounter:
+            tatTagcounter=bigramTagCounter[tag_tag_combined]
 
-    scoresPerWord.append(score)
-    # #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
 
-print(str(len(scoresPerWord)))
-print(str(highestScoreSoFar))
-print(predicted_tag)
 
+        #
+        # if tag_tag_combined in bigramTagCounter:
+        #     #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+        # else:
+        #     #print(tag_tag_combined+":"+str(0))
+
+        # find emission prob:p(wi/ti)=count(ti,wi)/count(ti)
+        #find the total number of times this tag occurs in the corpus=freq
+        #i.e wordTagCount/freq
+
+        # print("wordTagCount:"+str(wordTagCount))
+        # print("freq:"+str(freq))
+        emission_prob=wordTagCount/freq
+        # if(emission_prob>0):
+        #     print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
+
+        # print("tatTagcounter:"+str(tatTagcounter))
+
+        transition_prob=tatTagcounter/freq
+        # print("transition_prob  word,tag:"+tag_tag_combined+"="+str(transition_prob))
+
+
+        #multiply both if
+        score=emission_prob*transition_prob
+        if(score>highestScoreSoFar):
+            highestScoreSoFar=score;
+            predicted_tag=thisTag
+
+        scoresPerWord.append(score)
+        # #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+
+    #after each word add the predicted tag to a list
+    listOfPredTags.append(predicted_tag)
+
+print((listOfPredTags))
 #sort and pick the tag with highest value. Find its index
 
 
