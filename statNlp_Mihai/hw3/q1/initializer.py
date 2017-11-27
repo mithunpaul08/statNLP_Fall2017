@@ -64,31 +64,38 @@ for thisTag, freq in tagCounter.items():
     #for each of the tags, find the number of times this word occurs with that tag
     if word_tag in wordTagCounter:
         wordTagCount=wordTagCounter[word_tag]
-        print(word_tag+":"+str(wordTagCounter[word_tag]))
-    else:
-        wordTagCount=0
-        print(word_tag+":"+str(0))
+
 
     #for each of this tag, find the count of the tag and teh previous tag
+    tatTagcounter=0
     tag_tag_combined="START"+"_"+thisTag
     if tag_tag_combined in bigramTagCounter:
-        print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
-    else:
-        print(tag_tag_combined+":"+str(0))
+        tatTagcounter=bigramTagCounter[tag_tag_combined]
 
 
 
-    if tag_tag_combined in bigramTagCounter:
-        print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
-    else:
-        print(tag_tag_combined+":"+str(0))
+    #
+    # if tag_tag_combined in bigramTagCounter:
+    #     #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+    # else:
+    #     #print(tag_tag_combined+":"+str(0))
 
     # find emission prob:p(wi/ti)=count(ti,wi)/count(ti)
     #find the total number of times this tag occurs in the corpus=freq
     #i.e wordTagCount/freq
+
+    print("wordTagCount:"+str(wordTagCount))
+    print("freq:"+str(freq))
     emission_prob=wordTagCount/freq
-    print("emission probability of word,tag:"+word_tag+"=")
-    print(emission_prob)
+    if(emission_prob>0):
+        print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
+
+    print("tatTagcounter:"+str(tatTagcounter))
+
+    transition_prob=tatTagcounter/freq
+    print("transition_prob  word,tag:"+tag_tag_combined+"="+str(transition_prob))
+
+#print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
 
         #find transition prob
 
