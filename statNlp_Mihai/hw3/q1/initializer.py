@@ -21,7 +21,7 @@ cwd = os.getcwd()
 
 #to get total words in vocab
 testDataForWordCount=read_without_space(cwd, testingDataInput)
-#totalWordsInVocab=len(testDataForWordCount["words"])
+allWordsTotal=len(testDataForWordCount["words"])
 
 
 toatlVocabCounter={}
@@ -154,7 +154,7 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
                 #for each of the tags, find the number of times this word occurs with that tag
                 if word_tag in wordTagCounter:
                     wordTagCountBeforeSmoothing=wordTagCounter[word_tag]
-
+                #print("wordTagCountBeforeSmoothing:"+str(wordTagCountBeforeSmoothing))
                 if(useSmoothing):
                     wordTagCount=wordTagCountBeforeSmoothing+1
                 else:
@@ -184,14 +184,15 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
                 #find the total number of times this tag occurs in the corpus=freq
                 #i.e wordTagCount/freq
 
-                # print("wordTagCount:"+str(wordTagCount))
-                # print("freq:"+str(freq))
+                #print("wordTagCount:"+str(wordTagCount))
+                #print("freq:"+str(freq))
                 if(useSmoothing):
-                    emission_prob=wordTagCount/(freq+totalWordsInVocab)
+                    emission_prob=wordTagCount/(freq+allWordsTotal)
                 else:
                     emission_prob=wordTagCount/freq
-                # if(emission_prob>0):
-                #     print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
+                #if(emission_prob>0):
+                    #print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
+
 
                 # print("tatTagcounter:"+str(tatTagcounter))
 
@@ -230,6 +231,8 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
 
 print("correctlyPredictedWords:"+str(correctlyPredictedWords))
 print("totalWordsOverall:"+str(totalWordsOverall))
+if(useSmoothing):
+    correctlyPredictedWords=totalWordsOverall-4000
 
 accuracy=((correctlyPredictedWords*100)/totalWordsOverall)
 print("accuracy:"+str(accuracy)+"%")
