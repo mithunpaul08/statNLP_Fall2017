@@ -39,6 +39,11 @@ def trainAndTest(useSmoothing):
 
     totalWordsInVocab=(len(toatlVocabCounter))
 
+    file_Name5 = "toatlVocabCounter.pkl"
+    # open the file for writing
+    fileObject5 = open(file_Name5,'wb')
+    pk.dump(toatlVocabCounter, fileObject5)
+
     #read training data
     posTrain=read_without_space(cwd,trainingData)
 
@@ -54,6 +59,13 @@ def trainAndTest(useSmoothing):
 
     #print("size of tags is:"+str(len(tagCounter)))
 
+
+    file_Name1 = "tagCounter.pkl"
+    # open the file for writing
+    fileObject1 = open(file_Name1,'wb')
+    pk.dump(tagCounter, fileObject1)
+
+
     #to find the number of times each word occurs with its corresponding tag
 
     wordTagCounter={}
@@ -68,7 +80,10 @@ def trainAndTest(useSmoothing):
         else:
             wordTagCounter[combined] = 1
 
-
+    file_Name2 = "wordTagCounter.pkl"
+    # open the file for writing
+    fileObject2 = open(file_Name2,'wb')
+    pk.dump(wordTagCounter, fileObject2)
 
     print(wordTagCounter["committee_NN"])
 
@@ -94,10 +109,11 @@ def trainAndTest(useSmoothing):
     #read the dev data
     #devData=read__dev_data_with_blank_lines(cwd, testingDataInput)
     #print("size of dev data is:"+str(len(devData)))
-    file_Name = "bigramTagCounter.pkl"
+
+    file_Name3 = "bigramTagCounter.pkl"
     # open the file for writing
-    fileObject = open(file_Name,'wb')
-    pk.dump(bigramTagCounter, fileObject)
+    fileObject3 = open(file_Name3,'wb')
+    pk.dump(bigramTagCounter, fileObject3)
 
     #read the test data
 
@@ -270,33 +286,37 @@ def testWithPickle(useSmoothing):
 
     #find all tags and the number of times the tag occurs
 
-    tagCounter={}
-    for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
+    # tagCounter={}
+    # for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
+    #
+    #     if tag in tagCounter:
+    #         tagCounter[tag] += 1
+    #     else:
+    #         tagCounter[tag] = 1
 
-        if tag in tagCounter:
-            tagCounter[tag] += 1
-        else:
-            tagCounter[tag] = 1
+    fileObject_tagCounter = open('tagCounter.pkl','rb')
+    tagCounter=pk.load(fileObject_tagCounter)
 
     #print("size of tags is:"+str(len(tagCounter)))
 
     #to find the number of times each word occurs with its corresponding tag
 
-    wordTagCounter={}
+    # wordTagCounter={}
+    #
+    # for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"]),desc="word_tag :"):
+    #     word=row[0]
+    #     tag=row[1]
+    #     #combine and store it to a hashtable
+    #     combined=word+"_"+tag
+    #     if combined in wordTagCounter:
+    #         wordTagCounter[combined] += 1
+    #     else:
+    #         wordTagCounter[combined] = 1
 
-    for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"]),desc="word_tag :"):
-        word=row[0]
-        tag=row[1]
-        #combine and store it to a hashtable
-        combined=word+"_"+tag
-        if combined in wordTagCounter:
-            wordTagCounter[combined] += 1
-        else:
-            wordTagCounter[combined] = 1
+    fileObject_wordTagCounter = open('wordTagCounter.pkl','rb')
+    wordTagCounter=pk.load(fileObject_wordTagCounter)
 
-
-
-    print(wordTagCounter["committee_NN"])
+    #print(wordTagCounter["committee_NN"])
 
 
     #get counts of START_NNP etc
