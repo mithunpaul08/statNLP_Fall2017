@@ -270,14 +270,17 @@ def testWithPickle(useSmoothing):
     allWordsTotal=len(testDataForWordCount["words"])
 
 
-    toatlVocabCounter={}
-    for eachWord in tqdm(testDataForWordCount["words"],total=len(testDataForWordCount["words"] ),desc="all_words :"):
+    # toatlVocabCounter={}
+    # for eachWord in tqdm(testDataForWordCount["words"],total=len(testDataForWordCount["words"] ),desc="all_words :"):
+    #
+    #     if eachWord in toatlVocabCounter:
+    #         toatlVocabCounter[eachWord] += 1
+    #     else:
+    #         toatlVocabCounter[eachWord] = 1
 
-        if eachWord in toatlVocabCounter:
-            toatlVocabCounter[eachWord] += 1
-        else:
-            toatlVocabCounter[eachWord] = 1
 
+    fileObject_toatlVocabCounter = open('toatlVocabCounter.pkl','rb')
+    toatlVocabCounter=pk.load(fileObject_toatlVocabCounter)
 
     totalWordsInVocab=(len(toatlVocabCounter))
 
@@ -293,6 +296,8 @@ def testWithPickle(useSmoothing):
     #         tagCounter[tag] += 1
     #     else:
     #         tagCounter[tag] = 1
+
+
 
     fileObject_tagCounter = open('tagCounter.pkl','rb')
     tagCounter=pk.load(fileObject_tagCounter)
