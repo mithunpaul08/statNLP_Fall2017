@@ -61,7 +61,7 @@ highestScoreSoFar=0;
 predicted_tag=""
 
 for thisTag, freq in tagCounter.items():
-    word_tag="chairman"+"_"+thisTag
+    word_tag="the"+"_"+thisTag
 
     wordTagCount=0
     #for each of the tags, find the number of times this word occurs with that tag
