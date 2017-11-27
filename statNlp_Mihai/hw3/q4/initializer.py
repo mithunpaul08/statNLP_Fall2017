@@ -18,4 +18,4 @@ training_data=readPOS(cwd,trainingData)
 #prepare_training_data(posTrain)
 
 startLstm(training_data)
-print("--- %s seconds ---" % (time.time() - start_time))
+print("--- %s minutes ---" % ((time.time() - start_time)/60)

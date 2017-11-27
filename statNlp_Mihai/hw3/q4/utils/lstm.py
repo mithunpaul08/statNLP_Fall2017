@@ -84,7 +84,11 @@ class LSTMTagger(nn.Module):
         super(LSTMTagger, self).__init__()
         self.hidden_dim = hidden_dim
 
-        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        #read teh glove data
+
+        embedding = nn.Embedding(embeddings.size(0), embeddings.size(1))
+        embedding.weight = nn.Parameter(embeddings)
+        #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         print("size of word embeddings now is:")
         print((self.word_embeddings))
 
