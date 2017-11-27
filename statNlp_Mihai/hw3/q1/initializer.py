@@ -1,6 +1,9 @@
 from utils.readData import read_without_space
-from utils.readData import read_with_space
+from utils.readData import read_tags_only_with_blank_lines
+from utils.readData import read_data_with_blank_lines
+
 from utils.calculations import calculate_bigrams
+
 
 import sys
 import os
@@ -9,10 +12,14 @@ from tqdm import tqdm
 start_time = time.time()
 
 trainingData="train.tagged"
-devData="dev.tagged"
-testingData="test.tagged"
+devDataInput="dev.tagged"
+testingDataInput="test.tagged"
 
 cwd = os.getcwd()
+
+
+
+#read training data
 posTrain=read_without_space(cwd,trainingData)
 
 #find all tags and the number of times the tag occurs
@@ -47,7 +54,7 @@ print(wordTagCounter["committee_NN"])
 
 
 #get counts of START_NNP etc
-tagsPerSentence=read_with_space(cwd,trainingData)
+tagsPerSentence=read_tags_only_with_blank_lines(cwd, trainingData)
 
 #for each tag find the number of times it occurs with the previous tag
 bigramTagCounter=calculate_bigrams(tagsPerSentence)
@@ -63,7 +70,15 @@ myWordCounter=0;
 listOfPredTags=[]
 
 
-dummy=["Pierre","Vinken","61","years","old",",","will"]
+
+#read the dev data
+devData=read_data_with_blank_lines(cwd, devDataInput)
+
+print("size of dev data is:"+str(len(devData)))
+sys.exit(1)
+
+
+dummy=["Pierre","Vinken","61","mithunpatti","old",",","will"]
 for eachWord in dummy:
     myWordCounter=myWordCounter+1
     highestScoreSoFar=0;
