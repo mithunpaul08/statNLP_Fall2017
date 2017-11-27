@@ -25,8 +25,7 @@ for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
     else:
         tagCounter[tag] = 1
 
-print("size of tags is:"+str(len(tagCounter)))
-sys.exit(1)
+#print("size of tags is:"+str(len(tagCounter)))
 
 #to find the number of times each word occurs with its corresponding tag
 
@@ -49,14 +48,57 @@ print(wordTagCounter["committee_NN"])
 
 #get counts of START_NNP etc
 tagsPerSentence=read_with_space(cwd,trainingData)
+
+#for each tag find the number of times it occurs with the previous tag
 bigramTagCounter=calculate_bigrams(tagsPerSentence)
-print(bigramTagCounter["START_NNP"])
+#print(bigramTagCounter["START_NNP"])
 
 
 #predict for a sample sentence CHAIRMAN OF
 
 
-#prepare_training_data(posTrain)
+for thisTag, freq in tagCounter.items():
+    word_tag="chairman"+"_"+thisTag
 
-#startLstm(posTrain)
+    wordTagCount=0
+    #for each of the tags, find the number of times this word occurs with that tag
+    if word_tag in wordTagCounter:
+        wordTagCount=wordTagCounter[word_tag]
+        print(word_tag+":"+str(wordTagCounter[word_tag]))
+    else:
+        wordTagCount=0
+        print(word_tag+":"+str(0))
+
+    #for each of this tag, find the count of the tag and teh previous tag
+    tag_tag_combined="START"+"_"+thisTag
+    if tag_tag_combined in bigramTagCounter:
+        print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+    else:
+        print(tag_tag_combined+":"+str(0))
+
+
+
+    if tag_tag_combined in bigramTagCounter:
+        print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+    else:
+        print(tag_tag_combined+":"+str(0))
+
+    # find emission prob:p(wi/ti)=count(ti,wi)/count(ti)
+    #find the total number of times this tag occurs in the corpus=freq
+    #i.e wordTagCount/freq
+    emission_prob=wordTagCount/freq
+    print("emission probability of word,tag:"+word_tag+"=")
+    print(emission_prob)
+
+        #find transition prob
+
+
+
+
+
+
+sys.exit(1)
+
+
+
 print("--- %s seconds ---" % (time.time() - start_time))

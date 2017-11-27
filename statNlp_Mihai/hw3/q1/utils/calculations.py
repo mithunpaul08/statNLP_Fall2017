@@ -1,7 +1,7 @@
 import sys
 from tqdm import tqdm
 
-
+#for each tag find the number of times it occurs with the previous tag
 def calculate_bigrams(tagsAsSentence):
     bigramCounter={}
     rowcounter=0;
