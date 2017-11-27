@@ -15,8 +15,7 @@ testingData="test.tagged"
 cwd = os.getcwd()
 posTrain=read_without_space(cwd,trainingData)
 
-# for word in posTrain["words"]:
-#     print(word)
+#find all tags and the number of times the tag occurs
 
 tagCounter={}
 for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
@@ -26,8 +25,10 @@ for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
     else:
         tagCounter[tag] = 1
 
-#to find the number of times each word occurs with its corresponding tag
+print("size of tags is:"+str(len(tagCounter)))
+sys.exit(1)
 
+#to find the number of times each word occurs with its corresponding tag
 
 wordTagCounter={}
 
@@ -52,6 +53,7 @@ bigramTagCounter=calculate_bigrams(tagsPerSentence)
 print(bigramTagCounter["START_NNP"])
 
 
+#predict for a sample sentence CHAIRMAN OF
 
 
 #prepare_training_data(posTrain)
