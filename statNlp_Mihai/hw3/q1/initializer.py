@@ -73,13 +73,11 @@ listOfPredTags=[]
 
 #read the dev data
 devData=read_data_with_blank_lines(cwd, devDataInput)
-
 print("size of dev data is:"+str(len(devData)))
-sys.exit(1)
 
+eachSent=devData[0][0][0]
 
-dummy=["Pierre","Vinken","61","mithunpatti","old",",","will"]
-for eachWord in dummy:
+for eachWord in eachSent:
     myWordCounter=myWordCounter+1
     highestScoreSoFar=0;
 
