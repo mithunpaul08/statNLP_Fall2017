@@ -15,10 +15,25 @@ start_time = time.time()
 trainingData="train.tagged"
 devDataInput="dev.tagged"
 testingDataInput="test.tagged"
-
+useSmoothing=True
 cwd = os.getcwd()
 
 
+#to get total words in vocab
+testDataForWordCount=read_without_space(cwd, testingDataInput)
+#totalWordsInVocab=len(testDataForWordCount["words"])
+
+
+toatlVocabCounter={}
+for eachWord in tqdm(testDataForWordCount["words"],total=len(testDataForWordCount["words"] ),desc="all_words :"):
+
+    if eachWord in toatlVocabCounter:
+        toatlVocabCounter[eachWord] += 1
+    else:
+        toatlVocabCounter[eachWord] = 1
+
+
+totalWordsInVocab=(len(toatlVocabCounter))
 
 #read training data
 posTrain=read_without_space(cwd,trainingData)
@@ -79,6 +94,10 @@ listOfPredTags=[]
 
 
 #read the test data
+
+
+
+
 testData=read_test_data_with_blank_lines(cwd, testingDataInput)
 #print("size of dev data is:"+str(len(testData)))
 
@@ -130,12 +149,16 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
 
 
                 word_tag=eachWord+"_"+thisTag
-
                 wordTagCount=0
+                wordTagCountBeforeSmoothing=0
                 #for each of the tags, find the number of times this word occurs with that tag
                 if word_tag in wordTagCounter:
-                    wordTagCount=wordTagCounter[word_tag]
+                    wordTagCountBeforeSmoothing=wordTagCounter[word_tag]
 
+                if(useSmoothing):
+                    wordTagCount=wordTagCountBeforeSmoothing+1
+                else:
+                    wordTagCount=wordTagCountBeforeSmoothing
 
                 #for each of this tag, find the count of the tag and teh previous tag
                 #here the value of predicted_tag will always contain the value of the tag i predicted
@@ -163,7 +186,10 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
 
                 # print("wordTagCount:"+str(wordTagCount))
                 # print("freq:"+str(freq))
-                emission_prob=wordTagCount/freq
+                if(useSmoothing):
+                    emission_prob=wordTagCount/(freq+totalWordsInVocab)
+                else:
+                    emission_prob=wordTagCount/freq
                 # if(emission_prob>0):
                 #     print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
 
