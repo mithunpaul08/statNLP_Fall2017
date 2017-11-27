@@ -206,6 +206,6 @@ print("correctlyPredictedWords:"+str(correctlyPredictedWords))
 print("totalWordsOverall:"+str(totalWordsOverall))
 
 accuracy=((correctlyPredictedWords*100)/totalWordsOverall)
-print("accuracy:"+accuracy+"%")
+print("accuracy:"+str(accuracy)+"%")
 
 print("--- %s minutes---" % (60*(time.time() - start_time)))
