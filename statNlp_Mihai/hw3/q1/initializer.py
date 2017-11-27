@@ -56,6 +56,9 @@ bigramTagCounter=calculate_bigrams(tagsPerSentence)
 
 #predict for a sample sentence CHAIRMAN OF
 
+scoresPerWord=[]
+highestScoreSoFar=0;
+predicted_tag=""
 
 for thisTag, freq in tagCounter.items():
     word_tag="chairman"+"_"+thisTag
@@ -84,18 +87,33 @@ for thisTag, freq in tagCounter.items():
     #find the total number of times this tag occurs in the corpus=freq
     #i.e wordTagCount/freq
 
-    print("wordTagCount:"+str(wordTagCount))
-    print("freq:"+str(freq))
+    # print("wordTagCount:"+str(wordTagCount))
+    # print("freq:"+str(freq))
     emission_prob=wordTagCount/freq
-    if(emission_prob>0):
-        print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
+    # if(emission_prob>0):
+    #     print("emission probability of word,tag:"+word_tag+"="+str(emission_prob))
 
-    print("tatTagcounter:"+str(tatTagcounter))
+    # print("tatTagcounter:"+str(tatTagcounter))
 
     transition_prob=tatTagcounter/freq
-    print("transition_prob  word,tag:"+tag_tag_combined+"="+str(transition_prob))
+    # print("transition_prob  word,tag:"+tag_tag_combined+"="+str(transition_prob))
 
-#print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+
+    #multiply both if
+    score=emission_prob*transition_prob
+    if(score>highestScoreSoFar):
+        highestScoreSoFar=score;
+        predicted_tag=thisTag
+
+    scoresPerWord.append(score)
+    # #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
+
+print(str(len(scoresPerWord)))
+print(str(highestScoreSoFar))
+print(predicted_tag)
+
+#sort and pick the tag with highest value. Find its index
+
 
         #find transition prob
 
