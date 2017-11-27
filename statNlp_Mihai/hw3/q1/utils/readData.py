@@ -45,7 +45,7 @@ def read_tags_only_with_blank_lines(cwd, inputFile):
 
 
 
-def read_data_with_blank_lines(cwd, inputFile):
+def read__dev_data_with_blank_lines(cwd, inputFile):
     all_sentences=[]
     tags=["START"]
     mywords=[]
@@ -54,8 +54,34 @@ def read_data_with_blank_lines(cwd, inputFile):
     spamReader = csv.reader(open(path+inputFile, newline=''), delimiter='\t', quotechar='|')
     for row in spamReader:
         rowcounter=rowcounter+1
-        #print("word is:"+str(len(row[1])))
+        print("word is:"+str(len(row[1])))
         if(len(row[1])==0):
+            tags.append("END")
+            all_sentences.append([[mywords],[tags]])
+            #send tags to calculate bigrams
+            #attach to a bigram list
+            tags=["START"]
+            mywords=[]
+        else:
+            mywords.append(row[0])
+            tags.append(row[1])
+
+
+
+    return all_sentences
+
+
+
+def read_test_data_with_blank_lines(cwd, inputFile):
+    all_sentences=[]
+    tags=["START"]
+    mywords=[]
+    rowcounter=0;
+    path = cwd+"/data/"
+    spamReader = csv.reader(open(path+inputFile, newline=''), delimiter='\t', quotechar='|')
+    for row in spamReader:
+        rowcounter=rowcounter+1
+        if(row==[]):
             tags.append("END")
             all_sentences.append([[mywords],[tags]])
             #send tags to calculate bigrams
