@@ -87,7 +87,8 @@ testData=read_test_data_with_blank_lines(cwd, testingDataInput)
 
 
 correctlyPredictedWords=0
-
+#to use in accuracy calculation
+totalWordsOverall=0
 #for eachWord in eachSent:
 sentenceCounter=0
 for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
@@ -95,15 +96,15 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
     # print(listOfGoldTags[0][1])
     # sys.exit(1)
     sentenceCounter=sentenceCounter+1
-    if(sentenceCounter>2):
-        #print("gold tags:"+str((eachTuple[1][0])))
-        #print("pred tags:"+str(((listOfPredTags))))
-        sys.exit(1)
+
+
     for eachSent in eachTuple[0]:
-        print("***starting new sentence")
         myWordCounter=0;
         totalWords=0;
         for eachWord in eachSent:
+            #to use in accuracy calculation
+            totalWordsOverall=totalWordsOverall+1
+
             totalWords=totalWords+1
             #print(eachWord)
 
@@ -122,7 +123,7 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
 
 
             #INITIALIZING to a default value beacuse otherwise when it sees a new word it bombs
-            predicted_tag="DT"
+            predicted_tag="NNS"
 
             #for each of the tag in the entire tag collection
             for thisTag, freq in tagCounter.items():
@@ -185,11 +186,12 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
             #after each word add the predicted tag to a list
             listOfPredTags.append(predicted_tag)
             #if the predicted tag is the same as the actual tag increase correctlyPredictedWords
-            print("predicted_tag:"+predicted_tag)
-            print("actual_tag:"+listOfGoldTags[0][totalWords])
+            #print("predicted_tag:"+predicted_tag)
+            actual_tag=listOfGoldTags[0][totalWords]
+            #print("actual_tag:"+actual_tag)
 
-            # if(predicted_tag==eachTuple[1][0][totalWords]):
-            #     correctlyPredictedWords=correctlyPredictedWords+1
+            if(predicted_tag==actual_tag):
+                correctlyPredictedWords=correctlyPredictedWords+1
 
 
         #print((listOfPredTags))
@@ -200,8 +202,10 @@ for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
 
 
 
+print("correctlyPredictedWords:"+str(correctlyPredictedWords))
+print("totalWordsOverall:"+str(totalWordsOverall))
 
-
-
+accuracy=((correctlyPredictedWords*100)/totalWordsOverall)
+print("accuracy:"+accuracy+"%")
 
 print("--- %s minutes---" % (60*(time.time() - start_time)))
