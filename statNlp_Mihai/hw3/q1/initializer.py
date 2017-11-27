@@ -18,8 +18,6 @@ posTrain=read_without_space(cwd,trainingData)
 # for word in posTrain["words"]:
 #     print(word)
 
-tagsPerSentence=read_with_space(cwd,trainingData)
-
 tagCounter={}
 for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
 
@@ -47,9 +45,12 @@ for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"]),desc="wor
 
 print(wordTagCounter["committee_NN"])
 
-#
-# calculate_bigrams(tagsPerSentence)
-# sys.exit(1)
+
+#get counts of START_NNP etc
+tagsPerSentence=read_with_space(cwd,trainingData)
+bigramTagCounter=calculate_bigrams(tagsPerSentence)
+print(bigramTagCounter["START_NNP"])
+
 
 
 

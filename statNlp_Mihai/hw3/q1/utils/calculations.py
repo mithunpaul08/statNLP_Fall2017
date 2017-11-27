@@ -1,11 +1,13 @@
 import sys
+from tqdm import tqdm
 
 
 def calculate_bigrams(tagsAsSentence):
     bigramCounter={}
     rowcounter=0;
     #for each of the sentences
-    for row in tagsAsSentence:
+    for row in tqdm(tagsAsSentence,total=len(tagsAsSentence),desc="tag_tag :"):
+    #for row in tagsAsSentence:
         rowcounter=rowcounter+1;
         #for each element in the row, take 2 at a time
         tagCounter=0;
@@ -21,10 +23,7 @@ def calculate_bigrams(tagsAsSentence):
 
             tagCounter=tagCounter+1;
 
+    return bigramCounter
 
 
-        if(rowcounter==2):
-            print(bigramCounter)
-            combined=""
-            sys.exit(1)
 
