@@ -58,18 +58,34 @@ bigramTagCounter=calculate_bigrams(tagsPerSentence)
 
 scoresPerWord=[]
 
-
+myWordCounter=0;
 #take input as a collection of sentences and return the predicted tags
 listOfPredTags=[]
+
+
 dummy=["Pierre","Vinken","61","years","old",",","will"]
 for eachWord in dummy:
-
+    myWordCounter=myWordCounter+1
     highestScoreSoFar=0;
-    predicted_tag=""
+
     previous_tag="START"
+    myTagCounter=0
+
+    #initially the first tag of a sentences will be previous_tag
+    # after each word, the predicted tag becomes the new previous_tag
+    #TODO: change this START thing if you are already feeding in with START while reading dev or testing data
+
+    if(myWordCounter>1):
+        previous_tag=predicted_tag
+
+
+
+    predicted_tag=""
 
     #for each of the tag in the entire tag collection
     for thisTag, freq in tagCounter.items():
+
+
         word_tag=eachWord+"_"+thisTag
 
         wordTagCount=0
@@ -82,12 +98,12 @@ for eachWord in dummy:
         #here the value of predicted_tag will always contain the value of the tag i predicted
         # this is the greedy approach
         tatTagcounter=0
-        tag_tag_combined=predicted_tag+"_"+thisTag
+        tag_tag_combined=previous_tag+"_"+thisTag
 
         if tag_tag_combined in bigramTagCounter:
             tatTagcounter=bigramTagCounter[tag_tag_combined]
 
-        print(tag_tag_combined+":"+tatTagcounter)
+        #print(tag_tag_combined+":"+str(tatTagcounter))
 
 
 
@@ -121,7 +137,7 @@ for eachWord in dummy:
             predicted_tag=thisTag
 
         scoresPerWord.append(score)
-    sys.exit(1)
+
         # #print(tag_tag_combined+":"+str(bigramTagCounter[tag_tag_combined]))
 
     #after each word add the predicted tag to a list
