@@ -15,11 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="trainData.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="trainData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/trainData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="189" column="39" lean-forward="false" selection-start-line="189" selection-start-column="39" selection-end-line="189" selection-end-column="39" />
+            <state relative-caret-position="459">
+              <caret line="84" column="7" lean-forward="false" selection-start-line="84" selection-start-column="7" selection-end-line="85" selection-end-column="30" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="initializer_cs539.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="initializer_cs539.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logRegressionMithun/initializer_cs539.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="84" column="0" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="84" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="60" column="44" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="44" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -54,8 +54,8 @@
       <file leaf-file-name="testData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/testData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2026">
-              <caret line="162" column="0" lean-forward="true" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+            <state relative-caret-position="339">
+              <caret line="41" column="62" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="41" selection-end-column="62" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -92,14 +92,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>tokenizeWithBothUniBigrams</find>
-      <find>trainWithPickle</find>
       <find>save to pick</find>
       <find>##print</find>
       <find>testWithGivenPickle</find>
       <find>accuracy</find>
       <find>arguments is</find>
       <find>shuffle</find>
-      <find>testWithAlreadyTrainedPickle</find>
       <find>sys.ex</find>
       <find>print</find>
       <find>calculateSigmoid</find>
@@ -107,9 +105,11 @@
       <find>arguments</find>
       <find>done reading and vectorizing test data</find>
       <find>vectorizer</find>
-      <find>cwd</find>
       <find>exists</find>
       <find>{}</find>
+      <find>trainWithPickle</find>
+      <find>cwd</find>
+      <find>testWithAlreadyTrainedPickle</find>
     </findStrings>
     <replaceStrings>
       <replace>print</replace>
@@ -545,36 +545,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logRegressionMithun/utils/read_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/trainData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="189" column="39" lean-forward="false" selection-start-line="189" selection-start-column="39" selection-end-line="189" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/testData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2026">
-          <caret line="162" column="0" lean-forward="true" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logRegressionMithun/utils/process_input_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -587,8 +557,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logRegressionMithun/initializer_cs539.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="84" column="0" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="252">
+          <caret line="60" column="44" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/testData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="41" column="62" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="41" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logRegressionMithun/utils/read_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logRegressionMithun/classifier/trainData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="84" column="7" lean-forward="false" selection-start-line="84" selection-start-column="7" selection-end-line="85" selection-end-column="30" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
