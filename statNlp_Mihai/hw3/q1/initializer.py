@@ -73,7 +73,7 @@ listOfPredTags=[]
 
 
 #read the dev data
-devData=read__dev_data_with_blank_lines(cwd, testingDataInput)
+#devData=read__dev_data_with_blank_lines(cwd, testingDataInput)
 #print("size of dev data is:"+str(len(devData)))
 
 
@@ -85,16 +85,27 @@ testData=read_test_data_with_blank_lines(cwd, testingDataInput)
 
 #eachSent=devData[0][0][0]
 
+
+correctlyPredictedWords=0
+
 #for eachWord in eachSent:
-for eachTuple in testData:
-    sentenceCounter=0
+sentenceCounter=0
+for eachTuple in tqdm(testData,total=len(testData),desc="test_data :"):
+    listOfGoldTags=eachTuple[1]
+    # print(listOfGoldTags[0][1])
+    # sys.exit(1)
+    sentenceCounter=sentenceCounter+1
+    if(sentenceCounter>2):
+        #print("gold tags:"+str((eachTuple[1][0])))
+        #print("pred tags:"+str(((listOfPredTags))))
+        sys.exit(1)
     for eachSent in eachTuple[0]:
-        sentenceCounter=sentenceCounter+1
-        if(sentenceCounter>1):
-            sys.exit(1)
-            print((listOfPredTags))
+        print("***starting new sentence")
         myWordCounter=0;
+        totalWords=0;
         for eachWord in eachSent:
+            totalWords=totalWords+1
+            #print(eachWord)
 
             myWordCounter=myWordCounter+1
             highestScoreSoFar=0;
@@ -110,8 +121,8 @@ for eachTuple in testData:
                 previous_tag=predicted_tag
 
 
-
-            predicted_tag=""
+            #INITIALIZING to a default value beacuse otherwise when it sees a new word it bombs
+            predicted_tag="DT"
 
             #for each of the tag in the entire tag collection
             for thisTag, freq in tagCounter.items():
@@ -173,6 +184,13 @@ for eachTuple in testData:
 
             #after each word add the predicted tag to a list
             listOfPredTags.append(predicted_tag)
+            #if the predicted tag is the same as the actual tag increase correctlyPredictedWords
+            print("predicted_tag:"+predicted_tag)
+            print("actual_tag:"+listOfGoldTags[0][totalWords])
+
+            # if(predicted_tag==eachTuple[1][0][totalWords]):
+            #     correctlyPredictedWords=correctlyPredictedWords+1
+
 
         #print((listOfPredTags))
     #sort and pick the tag with highest value. Find its index
@@ -185,8 +203,5 @@ for eachTuple in testData:
 
 
 
-sys.exit(1)
 
-
-
-print("--- %s seconds ---" % (time.time() - start_time))
+print("--- %s minutes---" % (60*(time.time() - start_time)))

@@ -18,8 +18,8 @@
       <file leaf-file-name="initializer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/initializer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="94" column="12" lean-forward="false" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="12" />
+            <state relative-caret-position="456">
+              <caret line="123" column="95" lean-forward="false" selection-start-line="123" selection-start-column="95" selection-end-line="123" selection-end-column="95" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -30,8 +30,8 @@
       <file leaf-file-name="readData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/readData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="82" column="31" lean-forward="false" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+            <state relative-caret-position="434">
+              <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -64,6 +64,8 @@
     <findStrings>
       <find>items</find>
       <find>myWordCounter</find>
+      <find>devData</find>
+      <find>totalWords</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -335,8 +337,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/readData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="82" column="31" lean-forward="false" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+        <state relative-caret-position="434">
+          <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -345,8 +347,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/initializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="94" column="12" lean-forward="false" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="12" />
+        <state relative-caret-position="456">
+          <caret line="123" column="95" lean-forward="false" selection-start-line="123" selection-start-column="95" selection-end-line="123" selection-end-column="95" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>

@@ -54,7 +54,7 @@ def read__dev_data_with_blank_lines(cwd, inputFile):
     spamReader = csv.reader(open(path+inputFile, newline=''), delimiter='\t', quotechar='|')
     for row in spamReader:
         rowcounter=rowcounter+1
-        print("word is:"+str(len(row[1])))
+        #print("word is:"+str(len(row[1])))
         if(len(row[1])==0):
             tags.append("END")
             all_sentences.append([[mywords],[tags]])
