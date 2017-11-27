@@ -8,6 +8,7 @@ from tqdm import tqdm
 import re
 torch.manual_seed(1)
 
+noofEpochs=1
 #create a dictionary (which will be filled later, to store the unique words and its indexes)
 wordsAndIndices = {}
 
@@ -124,10 +125,13 @@ def startLstm(training_data):
     #print(tag_scores)
 
 
-    for epoch in range(1):
+    for epoch in tqdm(range(noofEpochs),total=noofEpochs,desc="epochs :"):
+    #for epoch in range(1):
+        sentenceCounter=0
+        for sentence,tags in tqdm(training_data ,total=len(training_data),desc="sent:"):
 
-        for sentence, tags in training_data:
-            
+        #for sentence, tags in training_data:
+
 
             # Step 1. Remember that Pytorch accumulates gradients.
             # We need to clear them out before each instance
