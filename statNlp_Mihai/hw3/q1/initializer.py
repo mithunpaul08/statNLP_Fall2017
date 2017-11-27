@@ -57,15 +57,15 @@ bigramTagCounter=calculate_bigrams(tagsPerSentence)
 #predict for a sample sentence CHAIRMAN OF
 
 scoresPerWord=[]
-highestScoreSoFar=0;
-predicted_tag=""
 
 
 #take input as a collection of sentences and return the predicted tags
-
+listOfPredTags=[]
 dummy=["Pierre","Vinken","61","years","old",",","will"]
 for eachWord in dummy:
-    listOfPredTags=[]
+
+    highestScoreSoFar=0;
+    predicted_tag=""
 
     #for each of the tag in the entire tag collection
     for thisTag, freq in tagCounter.items():
