@@ -270,16 +270,10 @@ def testWithPickle(useSmoothing):
     allWordsTotal=len(testDataForWordCount["words"])
 
 
-    # toatlVocabCounter={}
-    # for eachWord in tqdm(testDataForWordCount["words"],total=len(testDataForWordCount["words"] ),desc="all_words :"):
-    #
-    #     if eachWord in toatlVocabCounter:
-    #         toatlVocabCounter[eachWord] += 1
-    #     else:
-    #         toatlVocabCounter[eachWord] = 1
 
 
-    fileObject_toatlVocabCounter = open('toatlVocabCounter.pkl','rb')
+
+    fileObject_toatlVocabCounter = open('toatlVocabCounter_golden.pkl','rb')
     toatlVocabCounter=pk.load(fileObject_toatlVocabCounter)
 
     totalWordsInVocab=(len(toatlVocabCounter))
@@ -287,41 +281,18 @@ def testWithPickle(useSmoothing):
     #read training data
     posTrain=read_without_space(cwd,trainingData)
 
-    #find all tags and the number of times the tag occurs
-
-    # tagCounter={}
-    # for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
-    #
-    #     if tag in tagCounter:
-    #         tagCounter[tag] += 1
-    #     else:
-    #         tagCounter[tag] = 1
 
 
 
-    fileObject_tagCounter = open('tagCounter.pkl','rb')
+
+    fileObject_tagCounter = open('tagCounter_golden.pkl','rb')
     tagCounter=pk.load(fileObject_tagCounter)
 
-    #print("size of tags is:"+str(len(tagCounter)))
 
-    #to find the number of times each word occurs with its corresponding tag
 
-    # wordTagCounter={}
-    #
-    # for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"]),desc="word_tag :"):
-    #     word=row[0]
-    #     tag=row[1]
-    #     #combine and store it to a hashtable
-    #     combined=word+"_"+tag
-    #     if combined in wordTagCounter:
-    #         wordTagCounter[combined] += 1
-    #     else:
-    #         wordTagCounter[combined] = 1
-
-    fileObject_wordTagCounter = open('wordTagCounter.pkl','rb')
+    fileObject_wordTagCounter = open('wordTagCounter_golden.pkl','rb')
     wordTagCounter=pk.load(fileObject_wordTagCounter)
 
-    #print(wordTagCounter["committee_NN"])
 
 
     #get counts of START_NNP etc
@@ -329,14 +300,10 @@ def testWithPickle(useSmoothing):
 
     #for each tag find the number of times it occurs with the previous tag
 
-    fileObject_trainedWeights = open('bigramTagCounter.pkl','rb')
+    fileObject_trainedWeights = open('bigramTagCounter_golden.pkl','rb')
     bigramTagCounter=pk.load(fileObject_trainedWeights)
 
-    #bigramTagCounter=calculate_bigrams(tagsPerSentence)
-    #print(bigramTagCounter["START_NNP"])
-
-
-    #predict for a sample sentence CHAIRMAN OF
+   
 
     scoresPerWord=[]
 
