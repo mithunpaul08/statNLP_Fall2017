@@ -78,8 +78,15 @@ def prepare_tags_data(posTrain):
     pk.dump(tagsAndIndices, fileObject1)
 
 
+#also create a hashtable from index to POS tag Eg: 1:NNP
 
+indicesAndTags={}
 
+def reverse_tags(localtagsAndIndices):
+    for tag,index in tqdm(localtagsAndIndices.items(),total=len(localtagsAndIndices.items()),desc="tagRev :"):
+        if index not in indicesAndTags:
+                indicesAndTags[index] = (tag)
+    return indicesAndTags
 
 EMBEDDING_DIM = 6
 HIDDEN_DIM = 6
@@ -182,6 +189,9 @@ def startLstm(training_data):
 
 def startLstmWithPickle(training_data):
 
+
+
+
     fileObject_tagsAndIndices = open('tagsAndIndices.pkl','rb')
     tagsAndIndices=pk.load(fileObject_tagsAndIndices)
 
@@ -193,13 +203,21 @@ def startLstmWithPickle(training_data):
 
     inputs = prepare_sequence(training_data[0][0], wordsAndIndices)
     tag_scores = model(inputs)
-    print(tag_scores)
-    print(training_data[0][0])
+    #print(tag_scores)
+    #print(training_data[0][0])
     allTags=[]
 
+    wordCounter=0
+
+    #to map indices to tags
+    localIndicesAndTags=reverse_tags(tagsAndIndices)
+    completePredTags=[]
+
     for perWordScore in tag_scores:
-        print(perWordScore)
-        highestScoreSoFar=0
+
+        wordCounter=wordCounter+1
+
+        highestScoreSoFar=99999
 
         highestIndex=0
         tagCounter=0;
@@ -207,30 +225,38 @@ def startLstmWithPickle(training_data):
         scoreCOunter=0
         #go through each of the scores of 45 pos tags and pick the highest
         for score in perWordScore:
+
             scoreCOunter=scoreCOunter+1
+            posvalue=score.data[0]*-1
 
-            #print(score.data[0]);
-            if(scoreCOunter==1):
-                if((score.data[0]) < highestScoreSoFar):
-                    highestScoreSoFar=score;
+
+            if(posvalue < highestScoreSoFar):
+                    highestScoreSoFar=posvalue;
                     highestIndex=tagCounter
-                else:
-                    if((score.data[0]) > highestScoreSoFar):
-                        highestScoreSoFar=score;
-                        highestIndex=tagCounter
 
-                tagCounter=tagCounter+1
+            tagCounter=tagCounter+1
 
-        #print(tagsAndIndices)
+        #after going through all the pos tags predicted print the higest score and highest inded
+
+        #print("highestScoreSoFar")
+        #print(highestScoreSoFar)
+        #print("highestIndex:")
         #print(highestIndex)
+        predTag=localIndicesAndTags[highestIndex]
+        #print("predicted tag:"+predTag)
+        completePredTags.append(predTag)
 
-        for tag, index in tagsAndIndices.items():
-            if index == highestIndex:
-                predicted_tag=tag
-                allTags.append(predicted_tag)
-                break;
 
-    #print(allTags)
+    print("input gold tags:"+str(training_data[0][1]))
+    print("predicted tags:"+str(completePredTags))
+    correctlyPred=0;
+    for f, b in zip(training_data[0][1], completePredTags):
+        if(f==b):
+            correctlyPred=correctlyPred+1
+
+    accuracy=((correctlyPred*100)/wordCounter)
+    print("accuracy:"+str(accuracy)+" %")
+
 
 
 

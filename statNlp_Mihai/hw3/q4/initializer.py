@@ -55,5 +55,4 @@ while True:
 
 
 
-
-#print("--- %s seconds ---" % ((time.time() - start_time)
+print("--- Took %s seconds---" % ((time.time() - start_time)*100/60))
