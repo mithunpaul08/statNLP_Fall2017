@@ -19,10 +19,9 @@ posTrain=read_without_space(cwd,trainingData)
 #     print(word)
 
 tagsPerSentence=read_with_space(cwd,trainingData)
-calculate_bigrams(tagsPerSentence)
 
 tagCounter={}
-for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"])):
+for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"]),desc="all_tags :"):
 
     if tag in tagCounter:
         tagCounter[tag] += 1
@@ -34,22 +33,23 @@ for tag in tqdm(posTrain["tags"],total=len(posTrain["tags"])):
 
 wordTagCounter={}
 
-for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"])):
+for index, row in tqdm(posTrain.iterrows(),total=len(posTrain["tags"]),desc="word_tag :"):
     word=row[0]
     tag=row[1]
-    print(tag)
-    if(index==25):
-        sys.exit(1)
     #combine and store it to a hashtable
-    combined=word+tag
+    combined=word+"_"+tag
     if combined in wordTagCounter:
         wordTagCounter[combined] += 1
     else:
         wordTagCounter[combined] = 1
 
 
-print(wordTagCounter["committeeNN"])
 
+print(wordTagCounter["committee_NN"])
+
+#
+# calculate_bigrams(tagsPerSentence)
+# sys.exit(1)
 
 
 

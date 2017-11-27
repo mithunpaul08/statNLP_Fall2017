@@ -33,7 +33,6 @@ def read_with_space(cwd, inputFile):
         if(row==[]):
             #attach end
             tags.append("END")
-            print(tags)
             all_sentences.append(tags)
             #send tags to calculate bigrams
             #attach to a bigram list
