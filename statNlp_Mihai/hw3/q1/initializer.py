@@ -253,8 +253,8 @@ def trainAndTest(useSmoothing):
 
     print("correctlyPredictedWords:"+str(correctlyPredictedWords))
     print("totalWordsOverall:"+str(totalWordsOverall))
-    if(useSmoothing):
-        correctlyPredictedWords=totalWordsOverall-4000
+    # if(useSmoothing):
+    #     correctlyPredictedWords=totalWordsOverall-4000
 
     accuracy=((correctlyPredictedWords*100)/totalWordsOverall)
     print("accuracy:"+str(accuracy)+" %")
