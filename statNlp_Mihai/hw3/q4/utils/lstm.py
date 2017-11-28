@@ -20,7 +20,15 @@ tagsAndIndices = {}
 
 
 def prepare_sequence(seq, to_ix):
-    idxs = [to_ix[w] for w in seq]
+    # if the word doesnt exist return a a random number-this is a temporary fix
+    for w in seq:
+        if w in to_ix:
+            idxs = [to_ix[w] ]
+        else:
+            print("found that this word wasnt seen during training:"+str(w))
+            idxs = [to_ix["the"] ]
+
+
     tensor = torch.LongTensor(idxs)
     return autograd.Variable(tensor)
 
@@ -187,10 +195,7 @@ def startLstm(training_data):
         #print(predicted_tag)
 
 
-def startLstmWithPickle(training_data):
-
-
-
+def startLstmWithPickle(test_data):
 
     fileObject_tagsAndIndices = open('tagsAndIndices.pkl','rb')
     tagsAndIndices=pk.load(fileObject_tagsAndIndices)
@@ -201,61 +206,85 @@ def startLstmWithPickle(training_data):
     fileObject_toatlVocabCounter = open('lstm.pkl','rb')
     model=pk.load(fileObject_toatlVocabCounter)
 
-    inputs = prepare_sequence(training_data[0][0], wordsAndIndices)
-    tag_scores = model(inputs)
-    #print(tag_scores)
-    #print(training_data[0][0])
-    allTags=[]
+    sentenceCounter=0
+    #for each sentences in the test data, feed it to the LSTM tagger
+    for eachTuple in tqdm(test_data,total=len(test_data),desc="test_data :"):
+        listOfGoldTags=eachTuple[1]
+        #print(listOfGoldTags[0])
 
-    wordCounter=0
+        listOfGoldWords=eachTuple[0]
+        #print(listOfGoldWords)
 
-    #to map indices to tags
-    localIndicesAndTags=reverse_tags(tagsAndIndices)
-    completePredTags=[]
+        sentenceCounter=sentenceCounter+1
 
-    for perWordScore in tag_scores:
-
-        wordCounter=wordCounter+1
-
-        highestScoreSoFar=99999
-
-        highestIndex=0
-        tagCounter=0;
-        predicted_tag="NN"
-        scoreCOunter=0
-        #go through each of the scores of 45 pos tags and pick the highest
-        for score in perWordScore:
-
-            scoreCOunter=scoreCOunter+1
-            posvalue=score.data[0]*-1
+        completePredTags=[]
+        for eachSent in eachTuple[0]:
+            #print(eachSent)
+            #print("size of wordsAndIndices:"+str(len(wordsAndIndices)))
 
 
-            if(posvalue < highestScoreSoFar):
-                    highestScoreSoFar=posvalue;
-                    highestIndex=tagCounter
+            inputs = prepare_sequence(eachSent, wordsAndIndices)
+            tag_scores = model(inputs)
 
-            tagCounter=tagCounter+1
+            #print(tag_scores)
+            #print(test_data[0][0])
+            allTags=[]
 
-        #after going through all the pos tags predicted print the higest score and highest inded
+            wordCounter=0
 
-        #print("highestScoreSoFar")
-        #print(highestScoreSoFar)
-        #print("highestIndex:")
-        #print(highestIndex)
-        predTag=localIndicesAndTags[highestIndex]
-        #print("predicted tag:"+predTag)
-        completePredTags.append(predTag)
+            #to map indices to tags
+            localIndicesAndTags=reverse_tags(tagsAndIndices)
 
 
-    print("input gold tags:"+str(training_data[0][1]))
+            for perWordScore in tag_scores:
+                print("word:"+str(eachSent[wordCounter]))
+
+
+
+                highestScoreSoFar=99999
+
+                highestIndex=0
+                tagCounter=0;
+                predicted_tag="NN"
+                scoreCOunter=0
+                #go through each of the scores of 45 pos tags and pick the highest
+                for score in perWordScore:
+
+                    scoreCOunter=scoreCOunter+1
+                    posvalue=score.data[0]*-1
+
+
+                    if(posvalue < highestScoreSoFar):
+                            highestScoreSoFar=posvalue;
+                            highestIndex=tagCounter
+
+                    tagCounter=tagCounter+1
+
+                #after going through all the pos tags predicted print the higest score and highest inded
+
+                #print("highestScoreSoFar")
+                #print(highestScoreSoFar)
+                #print("highestIndex:")
+                #print(highestIndex)
+                predTag=localIndicesAndTags[highestIndex]
+                print("predicted tag:"+predTag)
+                completePredTags.append(predTag)
+                wordCounter=wordCounter+1
+                print("gold tag:"+str(listOfGoldTags))
+                sys.exit(1)
+
+
+    print("input gold tags:" + str(listOfGoldTags))
     print("predicted tags:"+str(completePredTags))
     correctlyPred=0;
-    for f, b in zip(training_data[0][1], completePredTags):
+    for f, b in zip(test_data[0][1], completePredTags):
         if(f==b):
             correctlyPred=correctlyPred+1
 
     accuracy=((correctlyPred*100)/wordCounter)
     print("accuracy:"+str(accuracy)+" %")
+    sys.exit(1)
+
 
 
 

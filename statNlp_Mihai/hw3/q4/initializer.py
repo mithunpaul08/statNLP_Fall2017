@@ -1,6 +1,7 @@
 from utils.readData import readPOS
 from utils.lstm import startLstm
 from utils.lstm import startLstmWithPickle
+from utils.readData import read_test_data_with_blank_lines
 
 
 #from utils.lstm import prepare_training_data
@@ -12,7 +13,7 @@ start_time = time.time()
 
 trainingData="train.tagged"
 devData="dev.tagged"
-testingData="test.tagged"
+testingDataInput="test.tagged"
 
 cwd = os.getcwd()
 training_data=readPOS(cwd,trainingData)
@@ -23,7 +24,7 @@ training_data=readPOS(cwd,trainingData)
 #startLstm(training_data)
 
 
-
+testData=read_test_data_with_blank_lines(cwd, testingDataInput)
 
 while True:
             print("                      ")
@@ -50,7 +51,7 @@ while True:
                     else:
 
                         if (myInput == "2"):
-                            startLstmWithPickle(training_data)
+                            startLstmWithPickle(testData)
 
 
 
