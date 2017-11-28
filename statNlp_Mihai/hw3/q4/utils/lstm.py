@@ -58,7 +58,7 @@ sentence_collection=[]
 
 def prepare_training_data(posTrain):
 
-    for eachSent in tqdm(posTrain,total=len(posTrain),desc="test_data :"):
+    for eachSent in tqdm(posTrain,total=len(posTrain),desc="tags_train:"):
         # print("eachSent:")
         # print(eachSent)
         for eachWord in eachSent[0]:
@@ -76,7 +76,7 @@ def prepare_training_data(posTrain):
 
 def prepare_tags_data(posTrain):
 
-    for eachSent in tqdm(posTrain,total=len(posTrain),desc="test_data :"):
+    for eachSent in tqdm(posTrain,total=len(posTrain),desc="words_train :"):
         # print("eachSent:")
         # print(eachSent)
         for tag in eachSent[1]:
