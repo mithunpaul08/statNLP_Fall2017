@@ -160,9 +160,9 @@ def startLstm(training_data,testData):
     tag_scores = model(inputs)
 
 
-    for epoch in tqdm(range(noofEpochs),total=noofEpochs,desc="epochs :"):
+    for epoch in tqdm(range(noofEpochs),total=noofEpochs,desc="epochs_train:"):
         sentenceCounter=0
-        for sentence,tags in tqdm(training_data ,total=len(training_data),desc="sent:"):
+        for sentence,tags in tqdm(training_data ,total=len(training_data),desc="sent_train:"):
 
 
 
@@ -190,7 +190,7 @@ def startLstm(training_data,testData):
     overallWordCounter=0
     sentenceCounter=0
     #for each sentences in the test data, feed it to the LSTM tagger
-    for eachTuple in tqdm(test_data,total=len(test_data),desc="test_data :"):
+    for eachTuple in tqdm(testData,total=len(testData),desc="testData :"):
 
 
         sentenceCounter=sentenceCounter+1
