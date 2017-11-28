@@ -113,14 +113,13 @@ class LSTMTagger(nn.Module):
         self.hidden_dim = hidden_dim
 
         #read teh glove data
-        vocab, vec = torchwordemb.load_glove_text(path)
-        print(vec.size())
-        print(vec[ w2v.vocab["apple"] ] )
+        # vocab, vec = torchwordemb.load_glove_text(path)
+        # print(vec.size())
+        # print(vec[ w2v.vocab["apple"] ] )
+        # self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
+        # self.word_embeddings = nn.Parameter(embeddings)
 
-        self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
-        self.word_embeddings = nn.Parameter(embeddings)
-
-        #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         print("size of word embeddings now is:")
         print((self.word_embeddings))
 
