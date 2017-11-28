@@ -16,7 +16,7 @@ devData="dev.tagged"
 testingDataInput="test.tagged"
 
 cwd = os.getcwd()
-training_data=readPOS(cwd,trainingData)
+
 
 #print(training_data[0])
 #prepare_training_data(posTrain)
@@ -24,7 +24,6 @@ training_data=readPOS(cwd,trainingData)
 #startLstm(training_data)
 
 
-testData=read_test_data_with_blank_lines(cwd, testingDataInput)
 
 while True:
             print("                      ")
@@ -39,6 +38,7 @@ while True:
 
             myInput=input("what is your choice:")
             if(myInput=="1"):
+                training_data=readPOS(cwd,trainingData)
                 startLstm(training_data)
 
             else:
@@ -51,6 +51,7 @@ while True:
                     else:
 
                         if (myInput == "2"):
+                            testData=read_test_data_with_blank_lines(cwd, testingDataInput)
                             startLstmWithPickle(testData)
 
 

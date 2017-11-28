@@ -114,8 +114,11 @@ class LSTMTagger(nn.Module):
 
         #read teh glove data
         vocab, vec = torchwordemb.load_glove_text(path)
+        print("vec.size()")
         print(vec.size())
-        print(vec[w2v.vocab["apple"] ] )
+        print(vec[vocab["apple"] ] )
+        print("vocab.size():")
+        print(vocab.size())
         self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
         self.word_embeddings = nn.Parameter(embeddings)
 
