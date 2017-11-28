@@ -7,7 +7,8 @@ import torch.optim as optim
 from tqdm import tqdm
 import re
 import pickle as pk
-
+import torchwordemb
+import os
 torch.manual_seed(1)
 
 noofEpochs=1
@@ -98,9 +99,12 @@ def reverse_tags(localtagsAndIndices):
                 indicesAndTags[index] = (tag)
     return indicesAndTags
 
-EMBEDDING_DIM = 6
-HIDDEN_DIM = 6
+EMBEDDING_DIM = 300
+HIDDEN_DIM = 50
 
+
+cwd = os.getcwd()
+path = cwd+"/data/"
 #
 class LSTMTagger(nn.Module):
 
@@ -109,13 +113,16 @@ class LSTMTagger(nn.Module):
         self.hidden_dim = hidden_dim
 
         #read teh glove data
+        vocab, vec = torchwordemb.load_glove_text(path)
+        print(vec.size())
+        print(vec[ w2v.vocab["apple"] ] )
 
-        # embedding = nn.Embedding(embeddings.size(0), embeddings.size(1))
-        # embedding.weight = nn.Parameter(embeddings)
+        self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
+        self.word_embeddings = nn.Parameter(embeddings)
 
-        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
-        # print("size of word embeddings now is:")
-        # print((self.word_embeddings))
+        #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        print("size of word embeddings now is:")
+        print((self.word_embeddings))
 
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)
 
