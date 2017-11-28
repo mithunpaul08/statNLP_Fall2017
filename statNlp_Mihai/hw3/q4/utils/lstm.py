@@ -118,9 +118,9 @@ class LSTMTagger(nn.Module):
         print(vec.size())
         print(vec[vocab["apple"] ] )
         print("vocab.size():")
-        print(vocab.size())
-        self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
-        self.word_embeddings = nn.Parameter(embeddings)
+        #print(vocab.size())
+        self.word_embeddings = nn.Embedding(vec.size(0), vec.size(1))
+        self.word_embeddings = nn.Parameter(vec)
 
         # self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         # print("size of word embeddings now is:")
