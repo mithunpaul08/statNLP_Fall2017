@@ -11,7 +11,7 @@ import time
 
 start_time = time.time()
 
-trainingData="train.tagged"
+trainingDataInput="train.tagged"
 devData="dev.tagged"
 testingDataInput="test.tagged"
 
@@ -38,8 +38,9 @@ while True:
 
             myInput=input("what is your choice:")
             if(myInput=="1"):
-                training_data=readPOS(cwd,trainingData)
-                startLstm(training_data)
+                testData=read_test_data_with_blank_lines(cwd, testingDataInput)
+                training_data=readPOS(cwd,trainingDataInput)
+                startLstm(training_data,testData)
 
             else:
                 if(myInput=="0"):

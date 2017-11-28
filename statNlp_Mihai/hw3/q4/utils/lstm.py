@@ -113,26 +113,17 @@ class LSTMTagger(nn.Module):
         super(LSTMTagger, self).__init__()
         self.hidden_dim = hidden_dim
 
-        #read teh glove data
-        glove = vocab.GloVe(name='6B', dim=300)
+        # #read teh glove data
+        # glove = vocab.GloVe(name='6B', dim=300)
+        # print('Loaded {} words'.format(len(glove.itos)))
+        # print("glove.vectors.size(0)")
+        # print(glove.vectors.size(0))
+        # print("glove.vectors.size(1)")
+        # print(glove.vectors.size(1))
+        # # self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
+        # # self.word_embeddings = nn.Parameter(glove.vectors)
 
-        print('Loaded {} words'.format(len(glove.itos)))
-        print("glove.vectors.size(0)")
-        print(glove.vectors.size(0))
-        print("glove.vectors.size(1)")
-        print(glove.vectors.size(1))
-
-        # vocab, vec = torchwordemb.load_glove_text(path)
-
-        # print(vec[vocab["apple"] ] )
-        # print("vocab.size():")
-        #print(vocab.size())
-        
-
-        self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
-        self.word_embeddings = nn.Parameter(glove.vectors)
-
-        # self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         # print("size of word embeddings now is:")
         # print((self.word_embeddings))
 
@@ -154,7 +145,7 @@ class LSTMTagger(nn.Module):
         return tag_scores
 
 
-def startLstm(training_data):
+def startLstm(training_data,testData):
 
     prepare_tags_data(training_data)
     prepare_training_data(training_data)
@@ -187,33 +178,120 @@ def startLstm(training_data):
             loss.backward()
             optimizer.step()
 
+    #the model is trained by now
     file_Name5 = "lstm.pkl"
     # open the file for writing
     fileObject5 = open(file_Name5,'wb')
     pk.dump(model, fileObject5)
 
-    inputs = prepare_sequence(training_data[0][0], wordsAndIndices)
-    tag_scores = model(inputs)
-    print(tag_scores)
+    ##########3testing phase
+
+    correctlyPred=0;
+    overallWordCounter=0
+    sentenceCounter=0
+    #for each sentences in the test data, feed it to the LSTM tagger
+    for eachTuple in tqdm(test_data,total=len(test_data),desc="test_data :"):
 
 
-    for perWordScore in tag_scores:
-        highestScoreSoFar=0
-        highestIndex=0
-        tagCounter=0;
-        #go through each of the scores of 45 pos tags and pick the highest
-        for score in perWordScore:
-            if(score>highestScoreSoFar):
-                highestScoreSoFar=score;
-                highestIndex=tagCounter
-        tagCounter=tagCounter+1
+        sentenceCounter=sentenceCounter+1
 
 
-        for tag, index in tagsAndIndices.iteritems():
-            if tagCounter == highestIndex:
-                predicted_tag=tag
 
-        #print(predicted_tag)
+        eachSent=eachTuple[0][0]
+
+        listOfGoldTags=eachTuple[1][0]
+
+
+        completePredTags=[]
+
+
+        inputs = prepare_sequence(eachSent, wordsAndIndices)
+        tag_scores = model(inputs)
+
+        allTags=[]
+
+        wordCounter=0
+
+        #to map indices to tags
+        localIndicesAndTags=reverse_tags(tagsAndIndices)
+
+
+        for perWordScore in tag_scores:
+            #print("perWordScore")
+            #print(perWordScore)
+            wordCounter=wordCounter+1
+            overallWordCounter=overallWordCounter+1
+
+
+
+            #print("word:"+str(eachSent[wordCounter-1]))
+
+
+
+
+            highestScoreSoFar=99999
+
+            highestIndex=0
+            tagCounter=0;
+            predicted_tag="NN"
+            scoreCOunter=0
+            #go through each of the scores of 45 pos tags and pick the highest
+            for score in perWordScore:
+                #print("score for this tag:")
+                #print(score)
+
+                scoreCOunter=scoreCOunter+1
+                posvalue=score.data[0]*-1
+
+
+                if(posvalue < highestScoreSoFar):
+                        highestScoreSoFar=posvalue;
+                        highestIndex=tagCounter
+
+                tagCounter=tagCounter+1
+
+            #after going through all the pos tags predicted print the higest score and highest inded
+
+            #print("highestScoreSoFar")
+            #print(highestScoreSoFar)
+            #print("highestIndex:")
+            #print(highestIndex)
+            predTag=localIndicesAndTags[highestIndex]
+            #print("predicted tag:"+predTag)
+            completePredTags.append(predTag)
+
+            #print("gold tag:"+str(listOfGoldTags[wordCounter]))
+
+            if(predTag==listOfGoldTags[wordCounter]):
+                correctlyPred=correctlyPred+1
+
+            #print("predicted tags:"+str(completePredTags))
+            # if(wordCounter>8):
+            #     #print("word counter is more than 8")
+            #     #print(wordCounter)
+            #     sys.exit(1)
+
+
+
+        #print("************done with all words in this sentence")
+        # print("input gold tags:" + str(listOfGoldTags))
+        # print("predicted tags:"+str(completePredTags))
+        #
+        #
+        # predTagCounter=0
+        # for eachPredTag in completePredTags:
+        #     if(eachPredTag==listOfGoldTags[predTagCounter+1]):
+        #         correctlyPred=correctlyPred+1
+        #     predTagCounter=predTagCounter+1
+
+    print("************done with all sentences")
+    print("correctlyPred")
+    print(correctlyPred)
+    print("overallWordCounter")
+    print(overallWordCounter)
+    accuracy=((correctlyPred*100)/overallWordCounter)
+    print("accuracy:"+str(accuracy)+" %")
+
 
 
 def startLstmWithPickle(test_data):
@@ -365,7 +443,7 @@ def startLstmWithPickle(test_data):
     print(overallWordCounter)
     accuracy=((correctlyPred*100)/overallWordCounter)
     print("accuracy:"+str(accuracy)+" %")
-    sys.exit(1)
+
 
 
 
