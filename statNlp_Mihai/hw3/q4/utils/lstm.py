@@ -114,16 +114,16 @@ class LSTMTagger(nn.Module):
         self.hidden_dim = hidden_dim
 
         # #read teh glove data
-        # glove = vocab.GloVe(name='6B', dim=300)
-        # print('Loaded {} words'.format(len(glove.itos)))
-        # print("glove.vectors.size(0)")
-        # print(glove.vectors.size(0))
-        # print("glove.vectors.size(1)")
-        # print(glove.vectors.size(1))
-        # # self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
-        # # self.word_embeddings = nn.Parameter(glove.vectors)
+        glove = vocab.GloVe(name='6B', dim=300)
+        print('Loaded {} words'.format(len(glove.itos)))
+        print("glove.vectors.size(0)")
+        print(glove.vectors.size(0))
+        print("glove.vectors[0]")
+        print(glove.vectors[0])
+        self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
+        self.word_embeddings = nn.Parameter(glove.vectors)
 
-        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         # print("size of word embeddings now is:")
         # print((self.word_embeddings))
 
