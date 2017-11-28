@@ -104,7 +104,7 @@ HIDDEN_DIM = 50
 
 
 cwd = os.getcwd()
-path = cwd+"/data/"
+path = cwd+"/data/glove/glove.6B.300d.txt"
 #
 class LSTMTagger(nn.Module):
 
@@ -115,7 +115,7 @@ class LSTMTagger(nn.Module):
         #read teh glove data
         vocab, vec = torchwordemb.load_glove_text(path)
         print(vec.size())
-        print(vec[ w2v.vocab["apple"] ] )
+        print(vec[w2v.vocab["apple"] ] )
         self.word_embeddings = nn.Embedding(embeddings.size(0), embeddings.size(1))
         self.word_embeddings = nn.Parameter(embeddings)
 
