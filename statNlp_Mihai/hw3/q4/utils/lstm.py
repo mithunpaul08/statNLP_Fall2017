@@ -121,7 +121,7 @@ class LSTMTagger(nn.Module):
         print("glove.vectors[0]")
         print(glove.vectors[0])
         self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
-        self.word_embeddings.weight.data.copy_(torch.from_numpy(glove.vectors))
+        self.word_embeddings.weight.data.copy_((glove.vectors))
         #self.word_embeddings = nn.Parameter(glove.vectors)
 
         #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
