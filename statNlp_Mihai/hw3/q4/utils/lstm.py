@@ -10,6 +10,7 @@ import pickle as pk
 import torchwordemb
 import os
 torch.manual_seed(1)
+import torchtext.vocab as vocab
 
 noofEpochs=1
 #create a dictionary (which will be filled later, to store the unique words and its indexes)
@@ -113,12 +114,19 @@ class LSTMTagger(nn.Module):
         self.hidden_dim = hidden_dim
 
         #read teh glove data
-        vocab, vec = torchwordemb.load_glove_text(path)
+        glove = vocab.GloVe(name='6B', dim=300)
+
+        print('Loaded {} words'.format(len(glove.itos)))
         print("vec.size()")
-        print(vec.size())
-        print(vec[vocab["apple"] ] )
-        print("vocab.size():")
+        print(glove.vectors.size())
+
+        # vocab, vec = torchwordemb.load_glove_text(path)
+
+        # print(vec[vocab["apple"] ] )
+        # print("vocab.size():")
         #print(vocab.size())
+        sys.exit(1)
+
         self.word_embeddings = nn.Embedding(vec.size(0), vec.size(1))
         self.word_embeddings = nn.Parameter(vec)
 
