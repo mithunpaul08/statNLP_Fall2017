@@ -16,7 +16,7 @@ noofEpochs=1
 #create a dictionary (which will be filled later, to store the unique words and its indexes)
 wordsAndIndices = {}
 
-
+#useGlove=False;
 #create a similar hash table for all the pos tags and give it an index
 tagsAndIndices = {}
 
@@ -109,22 +109,25 @@ path = cwd+"/data/glove/glove.6B.300d.txt"
 #
 class LSTMTagger(nn.Module):
 
-    def __init__(self, embedding_dim, hidden_dim, vocab_size, tagset_size):
+    def __init__(self, embedding_dim, hidden_dim, vocab_size, tagset_size,useGlove):
         super(LSTMTagger, self).__init__()
         self.hidden_dim = hidden_dim
 
         # #read teh glove data
-        glove = vocab.GloVe(name='6B', dim=300)
-        # print('Loaded {} words'.format(len(glove.itos)))
-        # print("glove.vectors.size(0)")
-        # print(glove.vectors.size(0))
-        # print("glove.vectors[0]")
-        # print(glove.vectors[0])
-        self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
-        self.word_embeddings.weight.data.copy_((glove.vectors))
-        #self.word_embeddings = nn.Parameter(glove.vectors)
-
-        #self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        if(useGlove):
+            print("going to load glove embeddings")
+            glove = vocab.GloVe(name='6B', dim=300)
+            # print('Loaded {} words'.format(len(glove.itos)))
+            # print("glove.vectors.size(0)")
+            # print(glove.vectors.size(0))
+            # print("glove.vectors[0]")
+            # print(glove.vectors[0])
+            self.word_embeddings = nn.Embedding(glove.vectors.size(0), glove.vectors.size(1))
+            self.word_embeddings.weight.data.copy_((glove.vectors))
+            #self.word_embeddings = nn.Parameter(glove.vectors)
+        else:
+            print("no glove embeddings")
+            self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
         # print("size of word embeddings now is:")
         # print((self.word_embeddings))
 
@@ -146,13 +149,14 @@ class LSTMTagger(nn.Module):
         return tag_scores
 
 
-def startLstm(training_data,testData):
+def startLstm(training_data,testData, gloveUseValue):
+    #useGlove=gloveUseValue
 
     prepare_tags_data(training_data)
     prepare_training_data(training_data)
 
 
-    model = LSTMTagger(EMBEDDING_DIM, HIDDEN_DIM, len(wordsAndIndices), len(tagsAndIndices))
+    model = LSTMTagger(EMBEDDING_DIM, HIDDEN_DIM, len(wordsAndIndices), len(tagsAndIndices),gloveUseValue)
     loss_function = nn.NLLLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
@@ -295,16 +299,31 @@ def startLstm(training_data,testData):
 
 
 
-def startLstmWithPickle(test_data):
+def startLstmWithPickle(test_data,useGloveForTest):
 
-    fileObject_tagsAndIndices = open('tagsAndIndices.pkl','rb')
-    tagsAndIndices=pk.load(fileObject_tagsAndIndices)
+    if(useGloveForTest):
+        fileObject_tagsAndIndices = open('tagsAndIndices_glove.pkl','rb')
+        tagsAndIndices=pk.load(fileObject_tagsAndIndices)
 
-    fileObject_wordsAndIndices = open('wordsAndIndices.pkl','rb')
-    wordsAndIndices=pk.load(fileObject_wordsAndIndices)
+        fileObject_wordsAndIndices = open('wordsAndIndices_glove.pkl','rb')
+        wordsAndIndices=pk.load(fileObject_wordsAndIndices)
 
-    fileObject_toatlVocabCounter = open('lstm.pkl','rb')
-    model=pk.load(fileObject_toatlVocabCounter)
+        fileObject_toatlVocabCounter = open("lstm_glove.pkl",'rb')
+        model=pk.load(fileObject_toatlVocabCounter)
+    else:
+        fileObject_tagsAndIndices = open('tagsAndIndices_withoutGlove.pkl','rb')
+        tagsAndIndices=pk.load(fileObject_tagsAndIndices)
+
+        fileObject_wordsAndIndices = open('wordsAndIndices_withoutGlove.pkl','rb')
+        wordsAndIndices=pk.load(fileObject_wordsAndIndices)
+
+        fileObject_toatlVocabCounter = open("lstm_withoutGlove.pkl",'rb')
+        model=pk.load(fileObject_toatlVocabCounter)
+
+
+
+
+
     correctlyPred=0;
     overallWordCounter=0
     sentenceCounter=0
